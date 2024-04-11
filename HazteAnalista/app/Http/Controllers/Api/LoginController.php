@@ -20,7 +20,6 @@ class LoginController extends Controller
      */
     public function signUp(Request $request)
     {
-      
         $request->validate([
             'name' => 'required|string',
             'email' => 'required|string|email|unique:users',
@@ -76,8 +75,7 @@ class LoginController extends Controller
      * Cierre de sesión (anular el token)
      */
     public function logout(Request $request)
-    {
-        
+    {   
         $request->user()->token()->revoke();
 
         return response()->json([
@@ -92,5 +90,4 @@ class LoginController extends Controller
     {
         return response()->json($request->user());
     }
-
 }
