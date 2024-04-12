@@ -32,6 +32,8 @@ use App\Http\Controllers\Api\ApiProyectoSeguimientoController;
         Route::get('catDecinesProyec', [ApiDecisionProyectoController::class, 'getCatDecisionProyecto']);
         Route::get('catexchange', [ApiExchangesController::class, 'getCatExchanges']);
         Route::get('catSectores', [ApiSectoresController::class, 'getCatSectores']);
+
+        Route::get('getProyectos',[ApiProyectoSeguimientoController::class, 'getProyectos']);
       
         
     Route::group(['middleware' => 'auth:api'], function() {

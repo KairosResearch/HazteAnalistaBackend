@@ -25,4 +25,11 @@ class ApiProyectoSeguimientoController extends Controller
         ]);
     return response()->json(['proyecto' => $proyecto], 200);
     }
+
+    public function getProyectos(Request $request){
+        $proyectosSeg = proyectoSeguimiento::select('nombre','ticket','id4e','id_decision_proyecto','marketCap','siAth','idExchange','idSector','precioEntrada','precioActual')
+        ->where('idUsuario',$request->idUsuario)->get();
+
+        return response()->json(['proyectos' => $proyectosSeg], 200);
+    }
 }
