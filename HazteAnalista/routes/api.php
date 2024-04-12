@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\Api4eController;
 use App\Http\Controllers\Api\ApiDecisionProyectoController;
 use App\Http\Controllers\Api\ApiExchangesController;
 use App\Http\Controllers\Api\ApiSectoresController;
+use App\Http\Controllers\Api\ApiProyectoSeguimientoController;
 
 
 /*
@@ -36,6 +37,7 @@ use App\Http\Controllers\Api\ApiSectoresController;
     Route::group(['middleware' => 'auth:api'], function() {
         Route::get('logout', [LoginController::class, 'logout']);
         Route::get('user', [LoginController::class, 'user']);
+        Route::post('saveProyectSegmto',[ApiProyectoSeguimientoController::class, 'saveProytecto']);
     });
 
     });

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             
             $table->integer('idUsuario');
+            $table->string('nombre');
             $table->string('ticket');
             $table->unsignedBigInteger('id4e');
             $table->unsignedBigInteger('id_decision_proyecto');

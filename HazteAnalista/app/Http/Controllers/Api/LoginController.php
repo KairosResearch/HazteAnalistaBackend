@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Validator;
 use App\Models\User;
+use App\Models\proyectoSeguimiento;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
@@ -56,6 +57,11 @@ class LoginController extends Controller
         ], 401);
 
     $user = $request->user();
+    
+    $proyectosSeg = proyectoSeguimiento::select('nombre','ticket','id4e','id_decision_proyecto','marketCap','siAth','idExchange','idSector','precioEntrada','precioActual')
+    ->where('idUsuario',$user->id)->get();
+
+    
     $tokenResult = $user->createToken('Personal Access Token');
 
     $token = $tokenResult->token;
@@ -64,6 +70,10 @@ class LoginController extends Controller
     $token->save();
 
     return response()->json([
+        'id_usuario' => $user->id,
+        'name_usuario' => $user->name,
+        'email_usuario' => $user->email,
+        'proyectos_seguimiento' => $proyectosSeg,
         'access_token' => $tokenResult->accessToken,
         'token_type' => 'Bearer',
         'expires_at' => Carbon::parse($token->expires_at)->toDateTimeString()
