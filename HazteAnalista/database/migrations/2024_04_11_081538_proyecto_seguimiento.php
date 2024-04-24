@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('ticket');
             $table->unsignedBigInteger('id4e');
             $table->unsignedBigInteger('id_decision_proyecto');
-            $table->integer('marketCap');
+            $table->bigInteger('marketCap');
             $table->integer('siAth');
             $table->unsignedBigInteger('idExchange');
             $table->unsignedBigInteger('idSector');

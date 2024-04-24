@@ -40,6 +40,9 @@ use App\Http\Controllers\Api\ApiProyectoSeguimientoController;
         Route::get('logout', [LoginController::class, 'logout']);
         Route::get('user', [LoginController::class, 'user']);
         Route::post('saveProyectSegmto',[ApiProyectoSeguimientoController::class, 'saveProytecto']);
+
+        Route::delete('delteProject', [ApiProyectoSeguimientoController::class, 'deleteProject']);
+        Route::put('update_project',[ApiProyectoSeguimientoController::class,'updateProyect']);
     });
 
     });

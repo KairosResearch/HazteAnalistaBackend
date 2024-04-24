@@ -32,4 +32,30 @@ class ApiProyectoSeguimientoController extends Controller
 
         return response()->json(['proyectos' => $proyectosSeg], 200);
     }
+
+    public function deleteProject(Request $request){
+        $id_projecto = $request->id_proyecto;
+        $res = proyectoSeguimiento::where('id',$id_projecto)->delete();
+       return response()->json(['eliminado'=>$res],200);
+    }
+
+    public function updateProyect(Request $request){
+        $id_projecto = $request->id_proyecto;
+        $proyecto = proyectoSeguimiento::find($id_projecto);
+        $proyecto->nombre = $request->input('nombre');
+        $proyecto->ticket = $request->input('ticket');
+        $proyecto->id4e = $request->input('id4e');
+        $proyecto->id_decision_proyecto =  $request->input('id_decision_proyecto');
+        $proyecto->marketCap = $request->input('marketCap');
+        $proyecto->siAth = $request->input('siAth');
+        $proyecto->idExchange = $request->input('idExchange');
+        $proyecto->idSector = $request->input('idSector');
+        $proyecto->precioEntrada = $request->input('precioEntrada');
+        $proyecto->precioActual = $request->input('precioActual');
+        $proyecto->update();
+
+        return response()->json(['Proyecto Acualizado'=>$proyecto],200);
+    }
+
+    
 }
