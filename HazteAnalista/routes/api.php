@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\ApiDecisionProyectoController;
 use App\Http\Controllers\Api\ApiExchangesController;
 use App\Http\Controllers\Api\ApiSectoresController;
 use App\Http\Controllers\Api\ApiProyectoSeguimientoController;
+use App\Http\Controllers\Api\ProyectosController;
 
 
 /*
@@ -32,8 +33,9 @@ use App\Http\Controllers\Api\ApiProyectoSeguimientoController;
         Route::get('catDecinesProyec', [ApiDecisionProyectoController::class, 'getCatDecisionProyecto']);
         Route::get('catexchange', [ApiExchangesController::class, 'getCatExchanges']);
         Route::get('catSectores', [ApiSectoresController::class, 'getCatSectores']);
-
-        Route::get('getProyectos',[ApiProyectoSeguimientoController::class, 'getProyectos']);
+        
+        Route::get('getProyectos',[ProyectosController::class, 'getProyectos']);
+        Route::get('getProyecto/{symbol}/{moneda}',[ProyectosController::class, 'getProyecto']);
       
         
     Route::group(['middleware' => 'auth:api'], function() {

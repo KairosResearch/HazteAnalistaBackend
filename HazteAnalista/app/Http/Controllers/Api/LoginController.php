@@ -58,7 +58,7 @@ class LoginController extends Controller
 
     $user = $request->user();
     
-    $proyectosSeg = proyectoSeguimiento::select('nombre','ticket','id4e','id_decision_proyecto','marketCap','siAth','idExchange','idSector','precioEntrada','precioActual')
+    $proyectosSeg = proyectoSeguimiento::select('id4e','id_decision_proyecto','marketCap','siAth','idExchange','idSector','precioEntrada')
     ->where('idUsuario',$user->id)->get();
 
     

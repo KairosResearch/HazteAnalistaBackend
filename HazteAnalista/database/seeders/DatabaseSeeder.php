@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             decisionPoyectoSeeder::class,
             exchangesSeeder::class,
             sectoresSeeder::class,
+            ProyectosSeeder::class,
         ]);
     }
 
