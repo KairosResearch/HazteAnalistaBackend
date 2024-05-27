@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\ApiExchangesController;
 use App\Http\Controllers\Api\ApiSectoresController;
 use App\Http\Controllers\Api\ApiProyectoSeguimientoController;
 use App\Http\Controllers\Api\ProyectosController;
+use App\Http\Controllers\Api\ApiRegistroController;
 
 
 /*
@@ -26,9 +27,12 @@ use App\Http\Controllers\Api\ProyectosController;
 
     Route::group(['prefix' => 'auth'], function () {
 
+        /*Route::post('login', [LoginController::class, 'login']);
+        Route::post('signup', [LoginController::class, 'signUp']);*/
+        Route::post('registro', [ApiRegistroController::class,'registro']);
         Route::post('login', [LoginController::class, 'login']);
-        Route::post('signup', [LoginController::class, 'signUp']);
-
+        Route::get('user', [LoginController::class, 'user']);
+        
         Route::get('catalogo4t', [Api4eController::class, 'getCat4t']);
         Route::get('catDecinesProyec', [ApiDecisionProyectoController::class, 'getCatDecisionProyecto']);
         Route::get('catexchange', [ApiExchangesController::class, 'getCatExchanges']);
@@ -36,16 +40,16 @@ use App\Http\Controllers\Api\ProyectosController;
         
         Route::get('getProyectos',[ProyectosController::class, 'getProyectos']);
         Route::get('getProyecto/{symbol}/{moneda}',[ProyectosController::class, 'getProyecto']);
-      
-        
-    Route::group(['middleware' => 'auth:api'], function() {
-        Route::get('logout', [LoginController::class, 'logout']);
-        Route::get('user', [LoginController::class, 'user']);
-        Route::post('saveProyectSegmto',[ApiProyectoSeguimientoController::class, 'saveProytecto']);
 
+        Route::post('saveProyectSegmto',[ApiProyectoSeguimientoController::class, 'saveProytecto']);
         Route::delete('delteProject', [ApiProyectoSeguimientoController::class, 'deleteProject']);
         Route::put('update_project',[ApiProyectoSeguimientoController::class,'updateProyect']);
-    });
+      
+        
+        /*Route::group(['middleware' => 'auth:api'], function() {
+            Route::get('logout', [LoginController::class, 'logout']);
+            Route::get('user', [LoginController::class, 'user']);
+        });*/
 
     });
     

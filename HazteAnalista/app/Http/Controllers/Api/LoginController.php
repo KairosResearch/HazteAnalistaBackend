@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class LoginController extends Controller
 {
@@ -44,40 +45,30 @@ class LoginController extends Controller
     public function login(Request $request)
     {
       $request->validate([
-        'email' => 'required|string|email',
-        'password' => 'required|string',
-        'remember_me' => 'boolean'
-    ]);
+        'id_user_privy' => 'required|string',
+        'wallet' => 'required|string'
+      ]);
 
-    $credentials = request(['email', 'password']);
+    
+    $user = DB::table('users')
+                ->select('id','id_user_privy','wallet')
+                ->where('id_user_privy',$request->id_user_privy)
+                ->get();
+    
+    if(count($user) > 0 ){
+        $proyectosSeg = proyectoSeguimiento::select('id4e','id_decision_proyecto','marketCap','siAth','idExchange','idSector','precioEntrada')
+        ->where('idUsuario',$user[0]->id)->get();
 
-    if (!Auth::attempt($credentials))
         return response()->json([
-            'message' => 'Unauthorized'
-        ], 401);
+            'id_usuario' => $user[0]->id,
+            'id_user_privy' => $user[0]->id_user_privy,
+            'waller' => $user[0]->wallet,
+            'proyectos_seguimiento' => $proyectosSeg
+        ]);
 
-    $user = $request->user();
-    
-    $proyectosSeg = proyectoSeguimiento::select('id4e','id_decision_proyecto','marketCap','siAth','idExchange','idSector','precioEntrada')
-    ->where('idUsuario',$user->id)->get();
-
-    
-    $tokenResult = $user->createToken('Personal Access Token');
-
-    $token = $tokenResult->token;
-    if ($request->remember_me)
-        $token->expires_at = Carbon::now()->addWeeks(1);
-    $token->save();
-
-    return response()->json([
-        'id_usuario' => $user->id,
-        'name_usuario' => $user->name,
-        'email_usuario' => $user->email,
-        'proyectos_seguimiento' => $proyectosSeg,
-        'access_token' => $tokenResult->accessToken,
-        'token_type' => 'Bearer',
-        'expires_at' => Carbon::parse($token->expires_at)->toDateTimeString()
-    ]);
+    }else{
+        return response()->json(['El usuario no exite'], 401);
+    }
 
   }
 
@@ -98,6 +89,16 @@ class LoginController extends Controller
      */
     public function user(Request $request)
     {
-        return response()->json($request->user());
+        $user = DB::table('users')
+        ->select('id','id_user_privy','wallet')
+        ->where('id',$request->id)
+        ->get();
+
+        if(count($user) > 0 ){
+            return response()->json($user,200);
+        }else{
+            return response()->json(['El usuario no existe'],401);
+        }
+        
     }
 }

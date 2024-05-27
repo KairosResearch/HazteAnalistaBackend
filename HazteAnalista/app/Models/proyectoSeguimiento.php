@@ -15,15 +15,13 @@ class proyectoSeguimiento extends Model
     
     protected $fillable = [
         'idUsuario',
-        'nombre',
-        'ticket',
+        'idProyecto',
         'id4e',
         'id_decision_proyecto',
         'marketCap',
         'siAth',
         'idExchange',
         'idSector',
-        'precioEntrada',
-        'precioActual',
+        'precioEntrada'
     ];
 }
