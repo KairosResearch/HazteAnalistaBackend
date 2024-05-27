@@ -44,7 +44,7 @@ class ProyectosController extends Controller
      );
 
      
-
+     
      return response()->json(['proyecto' => $rec], 200);
 
     }
