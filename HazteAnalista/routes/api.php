@@ -48,6 +48,8 @@ use App\Http\Controllers\Api\ApiRegistroController;
         Route::get('getProyectosSegUsuario/{idUsuario}',[ApiProyectoSeguimientoController::class,'getProyectos']);
 
         
+
+        
       
         
         /*Route::group(['middleware' => 'auth:api'], function() {

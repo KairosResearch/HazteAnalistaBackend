@@ -25,23 +25,17 @@ class ApiProyectoSeguimientoController extends Controller
     }
 
     public function getProyectos(Request $request){
-        /*$proyectosSeg = proyectoSeguimiento::select('id as id_proyecto','id4e','id_decision_proyecto','siAth','idExchange','idSector','precioEntrada')
-        ->join()
-        ->where('idUsuario',$request->idUsuario)->get();*/
-
         $proyectosSeg = DB::table('proyecto_seguimiento')
             ->join('proyectos', 'proyectos.id', '=', 'proyecto_seguimiento.idProyecto')
             ->select('proyecto_seguimiento.id as id_proyecto','id4e','id_decision_proyecto','siAth','idExchange','idSector','precioEntrada','proyecto','ticker')
             ->where('proyecto_seguimiento.idUsuario',$request->idUsuario)
             ->get();
-
-        return response()->json(['proyectos' => $proyectosSeg], 200);
+            return response()->json(['proyectos' => $proyectosSeg], 200);
     }
 
     public function deleteProject(Request $request){
         $id_projecto = $request->id_proyecto;
-        $id_usuario = $request->id_usuario;
-        $res = proyectoSeguimiento::where('idUsuario',$id_usuario)->where('idProyecto',$id_projecto)->delete();
+        $res = proyectoSeguimiento::where('id',$id_projecto)->delete();
        return response()->json(['eliminado'=>$res],200);
     }
 
