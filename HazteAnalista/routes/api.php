@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\ApiSectoresController;
 use App\Http\Controllers\Api\ApiProyectoSeguimientoController;
 use App\Http\Controllers\Api\ProyectosController;
 use App\Http\Controllers\Api\ApiRegistroController;
+use App\Http\Controllers\Api\ApiProyectosController;
 
 
 /*
@@ -46,11 +47,7 @@ use App\Http\Controllers\Api\ApiRegistroController;
         Route::put('update_project',[ApiProyectoSeguimientoController::class,'updateProyect']);
 
         Route::get('getProyectosSegUsuario/{idUsuario}',[ApiProyectoSeguimientoController::class,'getProyectos']);
-
-        
-
-        
-      
+        Route::get('getInfoProyecto/{idProyecto}',[ApiProyectosController::class,'getInfoProyecto']);
         
         /*Route::group(['middleware' => 'auth:api'], function() {
             Route::get('logout', [LoginController::class, 'logout']);
