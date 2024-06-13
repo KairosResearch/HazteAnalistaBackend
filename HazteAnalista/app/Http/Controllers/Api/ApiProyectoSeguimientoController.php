@@ -10,7 +10,15 @@ use App\Models\proyectoSeguimiento;
 class ApiProyectoSeguimientoController extends Controller
 {
     public function saveProytecto(Request $request){
-    $proyecto = proyectoSeguimiento::create([
+
+    $existProyect = proyectoSeguimiento::where('idUsuario',$request->idUsuario)
+    ->where('idProyecto',$request->idProyecto)
+    ->exists();
+    
+    if($existProyect){
+        return response()->json(['Error' =>"Ya fue agregado este proyecto para el usuario"], 401);
+    }else{
+        $proyecto = proyectoSeguimiento::create([
         'idUsuario' => $request->idUsuario,
         'idProyecto' => $request->idProyecto,
         'id4e' => $request->id4e,
@@ -20,8 +28,10 @@ class ApiProyectoSeguimientoController extends Controller
         'idExchange' => $request->idExchange,
         'idSector' => $request->idSector,
         'precioEntrada' => $request->precioEntrada,
+        'precioActual' => $request->precioActual
         ]);
-    return response()->json(['proyecto' => $proyecto], 200);
+        return response()->json(['proyecto' => $proyecto], 200);
+        }
     }
 
     public function getProyectos(Request $request){

@@ -43,8 +43,6 @@ class ProyectosController extends Controller
         "proyecto"=>$proyecto
      );
 
-     
-     
      return response()->json(['proyecto' => $rec], 200);
 
     }

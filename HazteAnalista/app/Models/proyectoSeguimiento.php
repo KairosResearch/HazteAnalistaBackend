@@ -22,6 +22,7 @@ class proyectoSeguimiento extends Model
         'siAth',
         'idExchange',
         'idSector',
-        'precioEntrada'
+        'precioEntrada',
+        'precioActual'
     ];
 }

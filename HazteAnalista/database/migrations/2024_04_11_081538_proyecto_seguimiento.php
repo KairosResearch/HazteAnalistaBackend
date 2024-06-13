@@ -25,6 +25,7 @@ return new class extends Migration
             $table->unsignedBigInteger('idExchange');
             $table->unsignedBigInteger('idSector');
             $table->double('precioEntrada');
+            $table->double('precioActual');
             
             $table->foreign('id4e')->references('id')->on('catalogo4e')->onDelete('cascade');
             $table->foreign('id_decision_proyecto')->references('id')->on('decision_proyecto')->onDelete('cascade');
