@@ -21,7 +21,6 @@ return new class extends Migration
             $table->unsignedBigInteger('id4e');
             $table->unsignedBigInteger('id_decision_proyecto');
             $table->bigInteger('marketCap');
-            $table->integer('siAth');
             $table->unsignedBigInteger('idExchange');
             $table->unsignedBigInteger('idSector');
             $table->double('precioEntrada');

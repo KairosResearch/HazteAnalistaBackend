@@ -24,7 +24,6 @@ class ApiProyectoSeguimientoController extends Controller
         'id4e' => $request->id4e,
         'id_decision_proyecto' => $request->id_decision_proyecto,
         'marketCap' => $request->marketCap,
-        'siAth' => $request->siAth,
         'idExchange' => $request->idExchange,
         'idSector' => $request->idSector,
         'precioEntrada' => $request->precioEntrada,

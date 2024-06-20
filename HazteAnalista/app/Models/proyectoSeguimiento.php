@@ -19,7 +19,6 @@ class proyectoSeguimiento extends Model
         'id4e',
         'id_decision_proyecto',
         'marketCap',
-        'siAth',
         'idExchange',
         'idSector',
         'precioEntrada',
