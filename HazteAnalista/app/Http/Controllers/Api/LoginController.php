@@ -56,7 +56,7 @@ class LoginController extends Controller
                 ->get();
     
     if(count($user) > 0 ){
-        $proyectosSeg = proyectoSeguimiento::select('id4e','id_decision_proyecto','marketCap','siAth','idExchange','idSector','precioEntrada')
+        $proyectosSeg = proyectoSeguimiento::select('id4e','id_decision_proyecto','marketCap','idExchange','idSector','precioEntrada')
         ->where('idUsuario',$user[0]->id)->get();
 
         return response()->json([
