@@ -36,7 +36,7 @@ class ApiProyectoSeguimientoController extends Controller
     public function getProyectos(Request $request){
         $proyectosSeg = DB::table('proyecto_seguimiento')
             ->join('proyectos', 'proyectos.id', '=', 'proyecto_seguimiento.idProyecto')
-            ->select('proyecto_seguimiento.id as id_proyecto','id4e','id_decision_proyecto','siAth','idExchange','idSector','precioEntrada','proyecto','ticker')
+            ->select('proyecto_seguimiento.id as id_proyecto','id4e','id_decision_proyecto','idExchange','idSector','precioEntrada','proyecto','ticker')
             ->where('proyecto_seguimiento.idUsuario',$request->idUsuario)
             ->get();
             return response()->json(['proyectos' => $proyectosSeg], 200);
@@ -53,7 +53,6 @@ class ApiProyectoSeguimientoController extends Controller
         $proyecto = proyectoSeguimiento::find($id_projecto);
         $proyecto->id4e = $request->input('id4e');
         $proyecto->id_decision_proyecto =  $request->input('id_decision_proyecto');
-        $proyecto->siAth = $request->input('siAth');
         $proyecto->idExchange = $request->input('idExchange');
         $proyecto->idSector = $request->input('idSector');
         $proyecto->precioEntrada = $request->input('precioEntrada');
