@@ -19,6 +19,9 @@ class DatabaseSeeder extends Seeder
             exchangesSeeder::class,
             sectoresSeeder::class,
             ProyectosSeeder::class,
+            ModulosLeccionesSeeder::class,
+            LeccionesSeeder::class,
+            
         ]);
     }
 
