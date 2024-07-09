@@ -51,6 +51,9 @@ use App\Http\Controllers\Api\LeccionesController;
         Route::get('getInfoProyecto/{idProyecto}',[ApiProyectosController::class,'getInfoProyecto']);
 
         Route::get('getLecciones/{idUsuario}',[LeccionesController::class,'getLecciones']);
+        Route::post('update_leccion_estatus',[LeccionesController::class,'update_leccion_estatus']);
+        Route::put('setUltimaLeccion',[LeccionesController::class,'setUltimaLeccion']);
+
         
         /*Route::group(['middleware' => 'auth:api'], function() {
             Route::get('logout', [LoginController::class, 'logout']);

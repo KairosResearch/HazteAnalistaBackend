@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Lecciones;
 use App\Models\ModulosLecciones;
+use App\Models\SeguimientoLecciones;
 
 class LeccionesController extends Controller
 {
@@ -39,5 +40,20 @@ class LeccionesController extends Controller
         }
         
         return response()->json(["ModulosLecciones"=>$InfoTratada,"isFinalizado"=>$lecciones_cursadas]);
+    }
+
+    public function update_leccion_estatus(Request $request){
+        $id_usuario   = $request->id_usuario;
+        $id_modulo    = $request->id_modulo;
+        $id_leccion   = $request->id_leccion;
+        
+        $setstausleccion = SeguimientoLecciones::create([
+            'id_usuario' => $id_usuario,
+            'id_modulo' => $id_modulo,
+            'id_leccion' => $id_leccion,
+            'status' => 1
+        ]);
+        
+        return response()->json(['LeccionFinalizada' => $setstausleccion], 200);   
     }
 }
