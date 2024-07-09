@@ -50,7 +50,7 @@ use App\Http\Controllers\Api\LeccionesController;
         Route::get('getProyectosSegUsuario/{idUsuario}',[ApiProyectoSeguimientoController::class,'getProyectos']);
         Route::get('getInfoProyecto/{idProyecto}',[ApiProyectosController::class,'getInfoProyecto']);
 
-        Route::get('getLecciones',[LeccionesController::class,'getLecciones']);
+        Route::get('getLecciones/{idUsuario}',[LeccionesController::class,'getLecciones']);
         
         /*Route::group(['middleware' => 'auth:api'], function() {
             Route::get('logout', [LoginController::class, 'logout']);
