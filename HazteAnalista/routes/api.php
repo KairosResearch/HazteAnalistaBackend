@@ -12,7 +12,7 @@ use App\Http\Controllers\Api\ProyectosController;
 use App\Http\Controllers\Api\ApiRegistroController;
 use App\Http\Controllers\Api\ApiProyectosController;
 use App\Http\Controllers\Api\LeccionesController;
-
+use App\Http\Controllers\Api\UltimasLeccionesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,7 +52,11 @@ use App\Http\Controllers\Api\LeccionesController;
 
         Route::get('getLecciones/{idUsuario}',[LeccionesController::class,'getLecciones']);
         Route::post('update_leccion_estatus',[LeccionesController::class,'update_leccion_estatus']);
+        
         Route::put('setUltimaLeccion',[LeccionesController::class,'setUltimaLeccion']);
+        Route::get('get_ultima_leccion/{idUsuario}',[UltimasLeccionesController::class,'get_ultima_leccion']);
+        Route::put('set_ultima_leccion',[UltimasLeccionesController::class,'set_ultima_leccion']);
+
 
         
         /*Route::group(['middleware' => 'auth:api'], function() {

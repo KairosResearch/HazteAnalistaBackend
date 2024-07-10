@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Lecciones;
 use App\Models\ModulosLecciones;
 use App\Models\SeguimientoLecciones;
+use App\Models\proyectoSeguimiento;
 
 class LeccionesController extends Controller
 {
@@ -47,13 +48,23 @@ class LeccionesController extends Controller
         $id_modulo    = $request->id_modulo;
         $id_leccion   = $request->id_leccion;
         
-        $setstausleccion = SeguimientoLecciones::create([
-            'id_usuario' => $id_usuario,
-            'id_modulo' => $id_modulo,
-            'id_leccion' => $id_leccion,
-            'status' => 1
-        ]);
-        
-        return response()->json(['LeccionFinalizada' => $setstausleccion], 200);   
+        $exist_status = SeguimientoLecciones::where('id_usuario',$id_usuario)
+        ->where('id_modulo',$id_modulo)
+        ->where('id_leccion',$id_leccion)
+        ->exists();
+
+
+        if($exist_status){
+            return response()->json(['Error' =>"Ya se registró el avance de este curso" ], 401);
+        }else{
+            $setstausleccion = SeguimientoLecciones::create([
+                'id_usuario' => $id_usuario,
+                'id_modulo' => $id_modulo,
+                'id_leccion' => $id_leccion,
+                'status' => 1
+            ]);
+            
+            return response()->json(['LeccionFinalizada' => $setstausleccion], 200);      
+        }
     }
 }
