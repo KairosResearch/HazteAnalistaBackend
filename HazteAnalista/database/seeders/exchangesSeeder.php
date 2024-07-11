@@ -15,8 +15,9 @@ class exchangesSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('exchanges')->insert(['id' => 1,'descripcion' => "Binance"]);
-        DB::table('exchanges')->insert(['id' => 2,'descripcion' => "Coinbase"]);
-        DB::table('exchanges')->insert(['id' => 3,'descripcion' => "Kraken"]);
+        DB::table('exchanges')->insert(['id' => 1,'descripcion' => "Ninguno"]);
+        DB::table('exchanges')->insert(['id' => 2,'descripcion' => "Binance"]);
+        DB::table('exchanges')->insert(['id' => 3,'descripcion' => "Coinbase"]);
+        DB::table('exchanges')->insert(['id' => 4,'descripcion' => "Kraken"]);
     }
 }

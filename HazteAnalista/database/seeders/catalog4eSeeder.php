@@ -15,9 +15,10 @@ class catalog4eSeeder extends Seeder
     public function run(): void
     {
         //
-        DB::table('catalogo4e')->insert(['id' => 1,'descripcion' => "Encontrar"]);
-        DB::table('catalogo4e')->insert(['id' => 2,'descripcion' => "Estudiar"]);
-        DB::table('catalogo4e')->insert(['id' => 3,'descripcion' => "Ejecutar"]);
-        DB::table('catalogo4e')->insert(['id' => 4,'descripcion' => "Evaluar"]);
+        DB::table('catalogo4e')->insert(['id' => 1,'descripcion' => "Ninguno"]);
+        DB::table('catalogo4e')->insert(['id' => 2,'descripcion' => "Encontrar"]);
+        DB::table('catalogo4e')->insert(['id' => 3,'descripcion' => "Estudiar"]);
+        DB::table('catalogo4e')->insert(['id' => 4,'descripcion' => "Ejecutar"]);
+        DB::table('catalogo4e')->insert(['id' => 5,'descripcion' => "Evaluar"]);
     }
 }
