@@ -22,14 +22,14 @@ return new class extends Migration
             $table->unsignedBigInteger('id_decision_proyecto');
             $table->bigInteger('marketCap');
             $table->unsignedBigInteger('idExchange');
-            $table->unsignedBigInteger('idSector');
+            
             $table->double('precioEntrada');
             $table->double('precioActual');
             
             $table->foreign('id4e')->references('id')->on('catalogo4e')->onDelete('cascade');
             $table->foreign('id_decision_proyecto')->references('id')->on('decision_proyecto')->onDelete('cascade');
             $table->foreign('idExchange')->references('id')->on('exchanges')->onDelete('cascade');
-            $table->foreign('idSector')->references('id')->on('sectores')->onDelete('cascade');
+            
 
             $table->foreign('idUsuario')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('idProyecto')->references('id')->on('proyectos')->onDelete('cascade');
