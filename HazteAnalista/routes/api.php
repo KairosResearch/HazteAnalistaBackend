@@ -57,6 +57,8 @@ use App\Http\Controllers\Api\UltimasLeccionesController;
         Route::get('get_ultima_leccion/{idUsuario}',[UltimasLeccionesController::class,'get_ultima_leccion']);
         Route::put('set_ultima_leccion',[UltimasLeccionesController::class,'set_ultima_leccion']);
 
+        Route::delete('deleteMasivo',[ApiProyectoSeguimientoController::class,'deleteMasivo']);
+
 
         
         /*Route::group(['middleware' => 'auth:api'], function() {

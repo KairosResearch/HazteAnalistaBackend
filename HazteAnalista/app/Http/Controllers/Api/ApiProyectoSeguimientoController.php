@@ -115,8 +115,20 @@ class ApiProyectoSeguimientoController extends Controller
                 ->where('id_sector',$value)
                 ->delete();
         }
-        
+
         return response()->json(['Proyecto Acualizado'=>$proyecto],200);
+    }
+
+    public function deleteMasivo(Request $request){
+        $proyectos = $request->arrayProyectos;
+        $idUsuario = $request->idUsuario;
+
+        foreach($proyectos as $key => $value){
+            $proyectoDelete = proyectoSeguimiento::where('id',$value)
+                ->where('idUsuario',$idUsuario)
+                ->delete();
+        }
+        return response()->json(['Proyectos Eliminados'=>$proyectoDelete],200);
     }
 
     
