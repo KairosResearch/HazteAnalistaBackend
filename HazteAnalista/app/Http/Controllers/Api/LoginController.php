@@ -10,6 +10,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
+use App\Models\Proyecto_seguimiento_sector;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -56,14 +57,33 @@ class LoginController extends Controller
                 ->get();
     
     if(count($user) > 0 ){
-        $proyectosSeg = proyectoSeguimiento::select('id4e','id_decision_proyecto','marketCap','idExchange','idSector','precioEntrada')
-        ->where('idUsuario',$user[0]->id)->get();
+        /*$proyectosSeg = proyectoSeguimiento::select('id4e','id_decision_proyecto','marketCap','idExchange','precioEntrada')
+        ->where('idUsuario',$user[0]->id)->get();*/
+
+        $proyectosSeg = DB::table('proyecto_seguimiento')
+        ->join('proyectos', 'proyectos.id', '=', 'proyecto_seguimiento.idProyecto')
+        ->select('proyecto_seguimiento.id as id_proyecto','id4e','id_decision_proyecto','marketCap','idExchange','precioEntrada','proyecto','ticker')
+        ->where('proyecto_seguimiento.idUsuario',$user[0]->id)
+        ->get();
+    
+        $arrray = array();
+        foreach($proyectosSeg as $key => $value){
+            $arrray[$key]['id_proyecto'] = $value->id_proyecto;
+            $arrray[$key]['id4e'] = $value->id4e;
+            $arrray[$key]['id_decision_proyecto'] = $value->id_decision_proyecto;
+            $arrray[$key]['idExchange'] = $value->idExchange;
+            $arrray[$key]['precioEntrada'] = $value->precioEntrada;
+            $arrray[$key]['proyecto'] = $value->proyecto;
+            $arrray[$key]['ticker'] = $value->ticker;
+            $arrray[$key]['sectores'] = $this->GetSectores($value->id_proyecto);
+            $arrray[$key]['marketCap'] = $value->marketCap;
+        }
 
         return response()->json([
             'id_usuario' => $user[0]->id,
             'id_user_privy' => $user[0]->id_user_privy,
             'waller' => $user[0]->wallet,
-            'proyectos_seguimiento' => $proyectosSeg
+            'proyectos_seguimiento' => $arrray
         ]);
 
     }else{
@@ -71,7 +91,20 @@ class LoginController extends Controller
     }
 
   }
+  public function GetSectores($id_proyecto){
+    $arraySectores = array(); 
+    
+    $proyectosSegSec = Proyecto_seguimiento_sector::where('id_proyecto_seguimiento',$id_proyecto)
+     ->select('id_sector')
+     ->get();
+    
+    foreach($proyectosSegSec as $key=>$value){
+        $arraySectores[$key] = $value->id_sector;
+    }
 
+    return $arraySectores;
+}
+    
     /**
      * Cierre de sesión (anular el token)
      */

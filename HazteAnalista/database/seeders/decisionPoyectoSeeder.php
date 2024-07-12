@@ -16,8 +16,7 @@ class decisionPoyectoSeeder extends Seeder
     public function run(): void
     {
         DB::table('decision_proyecto')->insert(['id' => 1,'descripcion' => "Ninguno"]);
-        DB::table('decision_proyecto')->insert(['id' => 2,'descripcion' => "Invertir"]);
-        DB::table('decision_proyecto')->insert(['id' => 3,'descripcion' => "Watchlist"]);
-        DB::table('decision_proyecto')->insert(['id' => 4,'descripcion' => "Descartar"]);
+        DB::table('decision_proyecto')->insert(['id' => 2,'descripcion' => "Lista de seguimiento"]);
+        DB::table('decision_proyecto')->insert(['id' => 3,'descripcion' => "Invertir"]);
     }
 }

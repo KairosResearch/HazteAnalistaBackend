@@ -10,6 +10,7 @@ class ApiDecisionProyectoController extends Controller
 {
     public function getCatDecisionProyecto(){
         $deciporyect = DB::table('decision_proyecto')->select('id as value','descripcion as label')
+        ->orderBy('id')
         ->get();
         return response()->json(['decesiproyecto' => $deciporyect],200);
        } 
