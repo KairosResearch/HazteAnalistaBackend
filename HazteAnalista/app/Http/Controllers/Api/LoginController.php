@@ -91,6 +91,7 @@ class LoginController extends Controller
     }
 
   }
+  
   public function GetSectores($id_proyecto){
     $arraySectores = array(); 
     

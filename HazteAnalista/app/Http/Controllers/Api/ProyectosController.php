@@ -23,6 +23,7 @@ class ProyectosController extends Controller
      $proyectos = Proyectos::select('id','proyecto','ticker')
      ->selectRaw("REPLACE(ticker, '$', '') as symbol")
      ->where('status',1)->get();
+     
      return response()->json(['proyectos' => $proyectos], 200);
     }
 

@@ -9,17 +9,24 @@ class Proyectos extends Model
 {
     use HasFactory;
 
-    protected $table =  "proyecto_seguimiento";
+    protected $table =  "proyectos";
     
     protected $fillable = [
-        'idUsuario',
-        'idProyecto',
-        'id4e',
-        'id_decision_proyecto',
-        'marketCap',
-        'idExchange',
-        'idSector',
-        'precioEntrada',
-        'precioActual'
+        'id',
+        'proyecto',
+        'ticker',
+        'descripcion',
+        'website',
+        'link_analisis_kairos',
+        'documentacion',
+        'twitter',
+        'github',
+        'discord',
+        'ultima_ronda',
+        'financiamiento',
+        'inversionista1',
+        'inversionista2',
+        'inversionista3',
+        'status'
     ];
 }
