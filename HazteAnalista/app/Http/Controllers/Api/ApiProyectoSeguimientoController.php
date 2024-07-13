@@ -26,18 +26,30 @@ class ApiProyectoSeguimientoController extends Controller
         'id_decision_proyecto' => $request->id_decision_proyecto,
         'marketCap' => $request->marketCap,
         'idExchange' => $request->idExchange,
-        
         'precioEntrada' => $request->precioEntrada,
         'precioActual' => $request->precioActual
         ]);
 
         foreach($request->idSector as $key => $value){
-         $prcto_seg_sector = Proyecto_seguimiento_sector::create([
-        'id_proyecto_seguimiento' => $proyecto->id,
-        'id_sector' => $value
-         ]);
-        }
-        
+            
+         if(count($request->idSector) == 1 and $value == 1){
+            $prcto_seg_sector = Proyecto_seguimiento_sector::create([
+            'id_proyecto_seguimiento' => $proyecto->id,
+            'id_sector' => $value]);
+         }elseif(count($request->idSector) > 1 && in_array(1,$request->idSector)){
+            if($value != 1){
+            $prcto_seg_sector = Proyecto_seguimiento_sector::create([
+            'id_proyecto_seguimiento' => $proyecto->id,
+            'id_sector' => $value]);
+            }
+         }elseif(count($request->idSector) > 1){
+            if($value != 1){
+            $prcto_seg_sector = Proyecto_seguimiento_sector::create([
+            'id_proyecto_seguimiento' => $proyecto->id,
+            'id_sector' => $value]);
+            }
+         }
+        }        
         return response()->json(['proyecto' => $proyecto], 200);
         }
     }
@@ -76,7 +88,6 @@ class ApiProyectoSeguimientoController extends Controller
 
         return $arraySectores;
     }
-
     
 
     public function deleteProject(Request $request){
@@ -100,12 +111,25 @@ class ApiProyectoSeguimientoController extends Controller
         $sectoresAdd =  $request->idSectoradd;
 
         foreach($sectoresAdd as $key => $value){
-            $sector = Proyecto_seguimiento_sector::create([
-                'id_proyecto_seguimiento'=>$id_projecto,
-                'id_sector'=>$value
-            ]);
+            
+            if(count($sectoresAdd) == 1 and $value == 1){
+                $sector = Proyecto_seguimiento_sector::create([
+                    'id_proyecto_seguimiento'=>$id_projecto,
+                    'id_sector'=>$value]);
+            }elseif(count($sectoresAdd) > 1 && in_array(1,$sectoresAdd)){
+               if($value != 1){
+                $sector = Proyecto_seguimiento_sector::create([
+                    'id_proyecto_seguimiento'=>$id_projecto,
+                    'id_sector'=>$value]);
+               }
+            }elseif(count($sectoresAdd) > 1){
+               if($value != 1){
+               $prcto_seg_sector = Proyecto_seguimiento_sector::create([
+               'id_proyecto_seguimiento' => $proyecto->id,
+               'id_sector' => $value]);
+               }
+            }
         }
-        
         return response()->json(['Proyecto Acualizado'=>$proyecto],200);
     }
 
@@ -119,7 +143,5 @@ class ApiProyectoSeguimientoController extends Controller
                 ->delete();
         }
         return response()->json(['Proyectos Eliminados'=>$proyectoDelete],200);
-    }
-
-    
+    }    
 }
