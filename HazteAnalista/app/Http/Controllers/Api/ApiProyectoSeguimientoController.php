@@ -94,28 +94,18 @@ class ApiProyectoSeguimientoController extends Controller
         $proyecto->precioEntrada = $request->input('precioEntrada');
         $proyecto->update();
         
+        $proyectosdelete = Proyecto_seguimiento_sector::where('id_proyecto_seguimiento',$id_projecto)
+        ->delete();
+
         $sectoresAdd =  $request->idSectoradd;
-        
+
         foreach($sectoresAdd as $key => $value){
-            $existSector = Proyecto_seguimiento_sector::where('id_proyecto_seguimiento',$id_projecto)
-            ->where('id_sector',$value)
-            ->exists();
-
-            if(!$existSector){
-                $sector = Proyecto_seguimiento_sector::create([
-                    'id_proyecto_seguimiento'=>$id_projecto,
-                    'id_sector'=>$value
-                ]);
-            }
+            $sector = Proyecto_seguimiento_sector::create([
+                'id_proyecto_seguimiento'=>$id_projecto,
+                'id_sector'=>$value
+            ]);
         }
         
-        $sectoresDelete =  $request->idSectordelete;
-        foreach($sectoresDelete as $key => $value){
-            $sectordelete = Proyecto_seguimiento_sector::where('id_proyecto_seguimiento',$id_projecto)
-                ->where('id_sector',$value)
-                ->delete();
-        }
-
         return response()->json(['Proyecto Acualizado'=>$proyecto],200);
     }
 
