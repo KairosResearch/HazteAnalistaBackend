@@ -9,7 +9,7 @@ use App\Models\AnalisisCuantitativoFinancieros;
 
 class AnalisisCuantitativoFinancierosController extends Controller
 {
-    public function getCuantitativoWhitePapaer(){
+    public function getCuantitativoFinanciamiento(){
         $whitepapear = AnalisisCuantitativoFinancieros::select('id','item','value')->get();
         return response()->json(['whitepapear' => $whitepapear],200);
     }
