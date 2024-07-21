@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('analisis_cuantitativo_caso_usos', function (Blueprint $table) {
+        Schema::create('analisis_cuantitativo_movimientos_on_chains', function (Blueprint $table) {
             $table->id();
+            $table->string('item');
+            $table->float('value');
             $table->timestamps();
         });
     }
@@ -22,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('analisis_cuantitativo_caso_usos');
+        Schema::dropIfExists('analisis_cuantitativo_movimientos_on_chains');
     }
 };

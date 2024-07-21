@@ -14,6 +14,20 @@ use App\Http\Controllers\Api\ApiProyectosController;
 use App\Http\Controllers\Api\LeccionesController;
 use App\Http\Controllers\Api\UltimasLeccionesController;
 
+use App\Http\Controllers\Api\AnalisisCualitativoAlianzasController;
+use App\Http\Controllers\Api\AnalisisCualitativoAudotoriasController;
+use App\Http\Controllers\Api\AnalisisCualitativoCasoUsoController;
+use App\Http\Controllers\Api\AnalisisCualitativoComunidadController;
+use App\Http\Controllers\Api\AnalisisCualitativoFinanciamientoController;
+use App\Http\Controllers\Api\AnalisisCualitativoIntegrantesEquipoController;
+use App\Http\Controllers\Api\AnalisisCualitativoRoadmapController;
+use App\Http\Controllers\Api\AnalisisCualitativoWhitepapaerController;
+
+use App\Http\Controllers\Api\AnalisisCuantitativoFinancierosController;
+use App\Http\Controllers\Api\AnalisisCuantitativoMetricasExchangesController;
+use App\Http\Controllers\Api\AnalisisCuantitativoMovimientosOnChainController;
+use App\Http\Controllers\Api\AnalisisCuantitativoTokenomicsController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -58,6 +72,20 @@ use App\Http\Controllers\Api\UltimasLeccionesController;
         Route::put('set_ultima_leccion',[UltimasLeccionesController::class,'set_ultima_leccion']);
 
         Route::delete('deleteMasivo',[ApiProyectoSeguimientoController::class,'deleteMasivo']);
+
+        Route::get('getCualitativo_alianzas',[AnalisisCualitativoAlianzasController::class,'getCualitativoAlianza']);
+        Route::get('getCualitativo_audotorias',[AnalisisCualitativoAudotoriasController::class,'getCualitativoAudotoria']);
+        Route::get('getCualitativo_caso_uso',[AnalisisCualitativoCasoUsoController::class,'getCualitativoCasoUso']);
+        Route::get('getCualitativo_comunidad',[AnalisisCualitativoComunidadController::class,'getCualitativoComunidad']);
+        Route::get('getCualitativo_financiamiento',[AnalisisCualitativoFinanciamientoController::class,'getCualitativoFinanziamiento']);
+        Route::get('getCualitativo_integrantes_equipo',[AnalisisCualitativoIntegrantesEquipoController::class,'getCualitativoIntegrantesEquipo']);
+        Route::get('getCualitativo_roadmap',[AnalisisCualitativoRoadmapController::class,'getCualitativoRoadmap']);
+        Route::get('getCualitativo_whitepapaer',[AnalisisCualitativoWhitepapaerController::class,'getCualitativoWhitePapaer']);
+
+        Route::get('getCuantitativo_financieros',[AnalisisCuantitativoFinancierosController::class,'getCuantitativoFinanciamiento']);
+        Route::get('getCuantitativo_metricas_xchanges',[AnalisisCuantitativoMetricasExchangesController::class,'getCuantitativoExchanges']);
+        Route::get('getCuantitativo_movimientos_OnChain',[AnalisisCuantitativoMovimientosOnChainController::class,'getCuantitativoOnchain']);
+        Route::get('getCuantitativo_Tokenomics',[AnalisisCuantitativoTokenomicsController::class,'getCuantitativoTokens']);
 
 
         

@@ -5,7 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AnalisisCuantitativoWhitepapaer extends Model
+class AnalisisCuantitativoTokenomics extends Model
 {
     use HasFactory;
+    protected $table =  "analisis_cuantitativo_tokenomics";
 }

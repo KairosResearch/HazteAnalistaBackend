@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('save_analisis_cualitativos', function (Blueprint $table) {
+        Schema::create('analisis_cuantitativo_metricas_exchanges', function (Blueprint $table) {
             $table->id();
+            $table->string('item');
+            $table->float('value');
             $table->timestamps();
         });
     }
@@ -22,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('save_analisis_cualitativos');
+        Schema::dropIfExists('analisis_cuantitativo_metricas_exchanges');
     }
 };

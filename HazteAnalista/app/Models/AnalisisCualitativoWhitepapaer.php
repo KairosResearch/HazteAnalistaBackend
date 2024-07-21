@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class AnalisisCualitativoWhitepapaer extends Model
 {
     use HasFactory;
+    protected $table =  "analisis_cualitativo_whitepapaers";
 }

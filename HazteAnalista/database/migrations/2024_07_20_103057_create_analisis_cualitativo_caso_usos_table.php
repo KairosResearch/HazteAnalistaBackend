@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('analisis_cualitativo_caso_usos', function (Blueprint $table) {
             $table->id();
+            $table->string('item');
+            $table->float('value');
             $table->timestamps();
         });
     }

@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('analisis_cuantitativo_financiamientos', function (Blueprint $table) {
+        Schema::create('analisis_cuantitativo_tokenomics', function (Blueprint $table) {
             $table->id();
+            $table->string('item');
+            $table->float('value');
             $table->timestamps();
         });
     }
@@ -22,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('analisis_cuantitativo_financiamientos');
+        Schema::dropIfExists('analisis_cuantitativo_tokenomics');
     }
 };
