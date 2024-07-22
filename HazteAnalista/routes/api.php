@@ -28,6 +28,10 @@ use App\Http\Controllers\Api\AnalisisCuantitativoMetricasExchangesController;
 use App\Http\Controllers\Api\AnalisisCuantitativoMovimientosOnChainController;
 use App\Http\Controllers\Api\AnalisisCuantitativoTokenomicsController;
 
+use App\Http\Controllers\Api\SaveAnalisisCualitativoController;
+use App\Http\Controllers\Api\SaveAnalisisCuantitativoController;
+use App\Models\SaveAnalisisCuantitativo;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -86,6 +90,9 @@ use App\Http\Controllers\Api\AnalisisCuantitativoTokenomicsController;
         Route::get('getCuantitativo_metricas_xchanges',[AnalisisCuantitativoMetricasExchangesController::class,'getCuantitativoExchanges']);
         Route::get('getCuantitativo_movimientos_OnChain',[AnalisisCuantitativoMovimientosOnChainController::class,'getCuantitativoOnchain']);
         Route::get('getCuantitativo_Tokenomics',[AnalisisCuantitativoTokenomicsController::class,'getCuantitativoTokens']);
+
+        Route::post('saveAnalisisCualitativo',[SaveAnalisisCualitativoController::class,'saveAnalisisCualitativo']);
+        Route::post('saveAnalisisCuantitativo',[SaveAnalisisCuantitativoController::class,'saveAnalisisCuantitavo']);
 
 
         
