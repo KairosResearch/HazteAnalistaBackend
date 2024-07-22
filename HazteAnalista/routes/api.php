@@ -94,6 +94,9 @@ use App\Models\SaveAnalisisCuantitativo;
         Route::post('saveAnalisisCualitativo',[SaveAnalisisCualitativoController::class,'saveAnalisisCualitativo']);
         Route::post('saveAnalisisCuantitativo',[SaveAnalisisCuantitativoController::class,'saveAnalisisCuantitavo']);
 
+        Route::put('updateAnalisisCualitativo',[SaveAnalisisCualitativoController::class,'updateAnalisisCualitativo']);
+        Route::put('updateAnalisisCuantitativo',[SaveAnalisisCuantitativoController::class,'updateAnalisisCuantitativo']);
+
 
         
         /*Route::group(['middleware' => 'auth:api'], function() {
