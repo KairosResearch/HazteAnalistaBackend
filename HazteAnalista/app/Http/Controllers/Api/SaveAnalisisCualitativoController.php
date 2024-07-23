@@ -21,6 +21,7 @@ class SaveAnalisisCualitativoController extends Controller
         $id_financiamiento   = $request->idFinanciamiento;
         $id_whitepapaers     = $request->idWhitepapaers;
         $id_alianzas         = $request->idAlianzas;
+        $promedio            = $request->idPromedio;
 
         $existAnalisis = SaveAnalisisCualitativo::where('id_usuario',$idUsuario)
         ->where('id_proyecto',$idProyecto)
@@ -40,6 +41,7 @@ class SaveAnalisisCualitativoController extends Controller
                 'id_financiamiento'     => $id_financiamiento,
                 'id_whitepapaers'       => $id_whitepapaers,
                 'id_alianzas'           => $id_alianzas,
+                'promedio'              => $promedio,
             ]);
             return response()->json(['message' => 'Analisis Cualitativo guardado exitosamente!'], 201);
         }

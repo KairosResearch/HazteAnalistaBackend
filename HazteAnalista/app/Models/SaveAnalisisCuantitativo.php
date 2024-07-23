@@ -17,6 +17,7 @@ class SaveAnalisisCuantitativo extends Model
         'id_tokenomic',
         'id_movimientosOnChain',
         'id_metricasExchage',
-        'id_financiamitos'
+        'id_financiamitos',
+        'promedio',
     ];
 }

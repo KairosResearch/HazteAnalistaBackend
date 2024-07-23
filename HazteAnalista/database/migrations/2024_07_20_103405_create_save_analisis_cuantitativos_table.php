@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_movimientosOnChain');
             $table->unsignedBigInteger('id_metricasExchage');
             $table->unsignedBigInteger('id_financiamitos');
+            $table->float('promedio');
 
             $table->foreign('id_usuario')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('id_proyecto')->references('id')->on('proyectos')->onDelete('cascade');

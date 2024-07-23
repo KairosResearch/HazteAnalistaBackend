@@ -21,6 +21,7 @@ class SaveAnalisisCualitativo extends Model
         'id_comunidad',
         'id_financiamiento',
         'id_whitepapaers',
-        'id_alianzas'
+        'id_alianzas',
+        'promedio',
     ];
 }

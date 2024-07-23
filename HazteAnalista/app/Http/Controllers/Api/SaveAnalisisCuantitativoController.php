@@ -17,6 +17,7 @@ class SaveAnalisisCuantitativoController extends Controller
             $id_movimientosOnChain   = $request->idMovimientosOnChain; 
             $id_metricasExchage      = $request->idMetricasExchange;
             $id_financiamitos        = $request->idFinanciamiento;
+            $promedio                = $request->promedio;
     
             $existAnalisis = SaveAnalisisCuantitativo::where('id_usuario',$id_usuario)
             ->where('id_proyecto',$id_proyecto)
@@ -32,6 +33,7 @@ class SaveAnalisisCuantitativoController extends Controller
                     'id_movimientosOnChain'  => $id_movimientosOnChain,
                     'id_metricasExchage'     => $id_metricasExchage,
                     'id_financiamitos'       => $id_financiamitos,
+                    'promedio'       => $promedio
                 ]);
                 return response()->json(['message' => 'Analisis Cuantitativo guardado exitosamente!'], 201);
             }
@@ -44,6 +46,7 @@ class SaveAnalisisCuantitativoController extends Controller
         $id_movimientosOnChain   = $request->idMovimientosOnChain; 
         $id_metricasExchage      = $request->idMetricasExchange;
         $id_financiamitos        = $request->idFinanciamiento;
+        $promedio                = $request->promedio;
 
         $existAnalisis = SaveAnalisisCuantitativo::where('id_usuario',$id_usuario)
         ->where('id_proyecto',$id_proyecto)
@@ -56,7 +59,8 @@ class SaveAnalisisCuantitativoController extends Controller
             'id_tokenomic'=>$id_tokenomic,
             'id_movimientosOnChain'=>$id_movimientosOnChain,
             'id_metricasExchage' => $id_metricasExchage, 
-            'id_financiamitos'=> $id_financiamitos
+            'id_financiamitos'=> $id_financiamitos,
+            'promedio'=> $promedio
           ]);
             return response()->json(['Upadate Analisis Cuantitavivo exitoso¡' => $updateAnalisiCuantitavivo], 200);
         }else{
@@ -67,7 +71,7 @@ class SaveAnalisisCuantitativoController extends Controller
     }
 
     public function getAnalisisCuantitativo($idUsuario){
-        $analisisCuantitativo =  SaveAnalisisCuantitativo::select('id_usuario','id_proyecto','id_tokenomic','id_movimientosOnChain','id_metricasExchage','id_financiamitos')
+        $analisisCuantitativo =  SaveAnalisisCuantitativo::select('id_usuario','id_proyecto','id_tokenomic','id_movimientosOnChain','id_metricasExchage','id_financiamitos','promedio')
         ->where('id_usuario',$idUsuario)
         ->get();
         return response()->json($analisisCuantitativo, 200);

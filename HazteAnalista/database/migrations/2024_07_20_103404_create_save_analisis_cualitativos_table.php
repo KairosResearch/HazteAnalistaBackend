@@ -24,6 +24,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_financiamiento');
             $table->unsignedBigInteger('id_whitepapaers');
             $table->unsignedBigInteger('id_alianzas');
+            $table->float('promedio');
             
             $table->foreign('id_usuario')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('id_proyecto')->references('id')->on('proyectos')->onDelete('cascade');
