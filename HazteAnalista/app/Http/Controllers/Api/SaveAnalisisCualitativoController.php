@@ -21,7 +21,7 @@ class SaveAnalisisCualitativoController extends Controller
         $id_financiamiento   = $request->idFinanciamiento;
         $id_whitepapaers     = $request->idWhitepapaers;
         $id_alianzas         = $request->idAlianzas;
-        $promedio            = $request->idPromedio;
+        $promedio            = $request->promedio;
 
         $existAnalisis = SaveAnalisisCualitativo::where('id_usuario',$idUsuario)
         ->where('id_proyecto',$idProyecto)
@@ -58,6 +58,7 @@ class SaveAnalisisCualitativoController extends Controller
         $id_financiamiento   = $request->idFinanciamiento;
         $id_whitepapaers     = $request->idWhitepapaers;
         $id_alianzas         = $request->idAlianzas;
+        $promedio            = $request->promedio;
 
         $existAnalisis = SaveAnalisisCualitativo::where('id_usuario',$idUsuario)
         ->where('id_proyecto',$idProyecto)
@@ -76,7 +77,8 @@ class SaveAnalisisCualitativoController extends Controller
                 'id_comunidad'=> $id_comunidad,
                 'id_financiamiento'=> $id_financiamiento,
                 'id_whitepapaers'=> $id_whitepapaers,
-                'id_alianzas'=> $id_alianzas
+                'id_alianzas'=> $id_alianzas,
+                'promedio'=> $promedio
                 ]);
             return response()->json(['Upadate Analisis Cuantitavivo exitoso¡' => $updateAnalisiCuantitavivo], 200);
         }else{
@@ -85,7 +87,7 @@ class SaveAnalisisCualitativoController extends Controller
     }
 
     public function getAnalisisCualitativo($idUsuario){
-        $analisisCualitativo =  SaveAnalisisCualitativo::select('id_usuario','id_proyecto','id_caso_uso','id_integrantes_equipo','id_auditoria','id_roadmap','id_comunidad','id_financiamiento','id_whitepapaers','id_alianzas')
+        $analisisCualitativo =  SaveAnalisisCualitativo::select('id_usuario','id_proyecto','id_caso_uso','id_integrantes_equipo','id_auditoria','id_roadmap','id_comunidad','id_financiamiento','id_whitepapaers','id_alianzas','promedio')
         ->where('id_usuario',$idUsuario)
         ->get();
         return response()->json($analisisCualitativo, 200);
