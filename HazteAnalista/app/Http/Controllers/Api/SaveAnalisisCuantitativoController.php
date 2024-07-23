@@ -12,12 +12,14 @@ class SaveAnalisisCuantitativoController extends Controller
     public function saveAnalisisCuantitavo(Request $request){
         
             $id_usuario              = $request->idUsuario;
+            $id_proyecto             = $request->idProyecto;
             $id_tokenomic            = $request->idTokenomic;
             $id_movimientosOnChain   = $request->idMovimientosOnChain; 
             $id_metricasExchage      = $request->idMetricasExchange;
             $id_financiamitos        = $request->idFinanciamiento;
     
             $existAnalisis = SaveAnalisisCuantitativo::where('id_usuario',$id_usuario)
+            ->where('id_proyecto',$id_proyecto)
             ->exists();
             
             if($existAnalisis){
@@ -25,6 +27,7 @@ class SaveAnalisisCuantitativoController extends Controller
             }else{
                 SaveAnalisisCuantitativo::create([
                     'id_usuario'             => $id_usuario ,
+                    'id_proyecto'            => $id_proyecto ,
                     'id_tokenomic'           => $id_tokenomic,
                     'id_movimientosOnChain'  => $id_movimientosOnChain,
                     'id_metricasExchage'     => $id_metricasExchage,
@@ -36,23 +39,35 @@ class SaveAnalisisCuantitativoController extends Controller
     
     public function updateAnalisisCuantitativo(Request $request){
         $id_usuario              = $request->idUsuario;
+        $id_proyecto             = $request->idProyecto;
         $id_tokenomic            = $request->idTokenomic;
         $id_movimientosOnChain   = $request->idMovimientosOnChain; 
         $id_metricasExchage      = $request->idMetricasExchange;
         $id_financiamitos        = $request->idFinanciamiento;
 
-        $updateAnalisiCuantitavivo =SaveAnalisisCuantitativo::where('id_usuario',$id_usuario)
-        ->update([
+        $existAnalisis = SaveAnalisisCuantitativo::where('id_usuario',$id_usuario)
+        ->where('id_proyecto',$id_proyecto)
+        ->exists();
+        
+        if($existAnalisis){
+         $updateAnalisiCuantitavivo =SaveAnalisisCuantitativo::where('id_usuario',$id_usuario)
+         ->where('id_proyecto',$id_proyecto)
+         ->update([
             'id_tokenomic'=>$id_tokenomic,
             'id_movimientosOnChain'=>$id_movimientosOnChain,
             'id_metricasExchage' => $id_metricasExchage, 
             'id_financiamitos'=> $id_financiamitos
-            ]);
-        return response()->json(['Upadate Analisis Cuantitavivo exitoso¡' => $updateAnalisiCuantitavivo], 200);
+          ]);
+            return response()->json(['Upadate Analisis Cuantitavivo exitoso¡' => $updateAnalisiCuantitavivo], 200);
+        }else{
+            return response()->json(['message' => 'No existe el analsis cuantitivo'], 401); 
+        }
+        
+        
     }
 
     public function getAnalisisCuantitativo($idUsuario){
-        $analisisCuantitativo =  SaveAnalisisCuantitativo::select('id_usuario','id_tokenomic','id_movimientosOnChain','id_metricasExchage','id_financiamitos')
+        $analisisCuantitativo =  SaveAnalisisCuantitativo::select('id_usuario','id_proyecto','id_tokenomic','id_movimientosOnChain','id_metricasExchage','id_financiamitos')
         ->where('id_usuario',$idUsuario)
         ->get();
         return response()->json($analisisCuantitativo, 200);

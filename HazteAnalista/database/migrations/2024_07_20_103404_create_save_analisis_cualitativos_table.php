@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             
             $table->unsignedBigInteger('id_usuario');
+            $table->unsignedBigInteger('id_proyecto');
             $table->unsignedBigInteger('id_caso_uso');
             $table->unsignedBigInteger('id_integrantes_equipo');
             $table->unsignedBigInteger('id_auditoria');
@@ -25,6 +26,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_alianzas');
             
             $table->foreign('id_usuario')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('id_proyecto')->references('id')->on('proyectos')->onDelete('cascade');
             $table->foreign('id_caso_uso')->references('id')->on('analisis_cualitativo_caso_usos')->onDelete('cascade');
             $table->foreign('id_integrantes_equipo')->references('id')->on('analisis_cualitativo_integrantes_equipos')->onDelete('cascade');
             $table->foreign('id_auditoria')->references('id')->on('analisis_cualitativo_auditorias')->onDelete('cascade');

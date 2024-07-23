@@ -13,6 +13,7 @@ class SaveAnalisisCualitativo extends Model
     
     protected $fillable = [
         'id_usuario',
+        'id_proyecto',
         'id_caso_uso',
         'id_integrantes_equipo',
         'id_auditoria',

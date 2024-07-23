@@ -15,12 +15,14 @@ return new class extends Migration
             $table->id();
             
             $table->unsignedBigInteger('id_usuario');
+            $table->unsignedBigInteger('id_proyecto');
             $table->unsignedBigInteger('id_tokenomic');
             $table->unsignedBigInteger('id_movimientosOnChain');
             $table->unsignedBigInteger('id_metricasExchage');
             $table->unsignedBigInteger('id_financiamitos');
 
             $table->foreign('id_usuario')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('id_proyecto')->references('id')->on('proyectos')->onDelete('cascade');
             $table->foreign('id_tokenomic')->references('id')->on('analisis_cuantitativo_tokenomics')->onDelete('cascade');
             $table->foreign('id_movimientosOnChain')->references('id')->on('analisis_cuantitativo_movimientos_on_chains')->onDelete('cascade');
             $table->foreign('id_metricasExchage')->references('id')->on('analisis_cuantitativo_metricas_exchanges')->onDelete('cascade');
