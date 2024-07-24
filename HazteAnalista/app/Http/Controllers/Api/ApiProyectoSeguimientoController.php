@@ -57,13 +57,14 @@ class ApiProyectoSeguimientoController extends Controller
     public function getProyectos(Request $request){
         $proyectosSeg = DB::table('proyecto_seguimiento')
             ->join('proyectos', 'proyectos.id', '=', 'proyecto_seguimiento.idProyecto')
-            ->select('proyecto_seguimiento.id as id_proyecto','id4e','id_decision_proyecto','idExchange','precioEntrada','proyecto','ticker')
+            ->select('proyecto_seguimiento.id as id_proyecto','id4e','id_decision_proyecto','idExchange','precioEntrada','proyecto','ticker','proyectos.id as id_proyectoInicial')
             ->where('proyecto_seguimiento.idUsuario',$request->idUsuario)
             ->get();
         
         $arrray = array();
         foreach($proyectosSeg as $key => $value){
             $arrray[$key]['id_proyecto'] = $value->id_proyecto;
+            $arrray[$key]['id_proyectoInicial'] = $value->id_proyectoInicial;
             $arrray[$key]['id4e'] = $value->id4e;
             $arrray[$key]['id_decision_proyecto'] = $value->id_decision_proyecto;
             $arrray[$key]['idExchange'] = $value->idExchange;
