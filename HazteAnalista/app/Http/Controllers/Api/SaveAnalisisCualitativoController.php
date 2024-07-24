@@ -86,9 +86,10 @@ class SaveAnalisisCualitativoController extends Controller
         } 
     }
 
-    public function getAnalisisCualitativo($idUsuario){
+    public function getAnalisisCualitativo($idUsuario,$idProyecto){
         $analisisCualitativo =  SaveAnalisisCualitativo::select('id_usuario','id_proyecto','id_caso_uso','id_integrantes_equipo','id_auditoria','id_roadmap','id_comunidad','id_financiamiento','id_whitepapaers','id_alianzas','promedio')
         ->where('id_usuario',$idUsuario)
+        ->where('id_proyecto',$idProyecto)
         ->get();
         return response()->json($analisisCualitativo, 200);
     }

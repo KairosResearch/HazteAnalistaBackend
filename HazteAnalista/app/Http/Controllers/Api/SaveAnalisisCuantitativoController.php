@@ -70,9 +70,10 @@ class SaveAnalisisCuantitativoController extends Controller
         
     }
 
-    public function getAnalisisCuantitativo($idUsuario){
+    public function getAnalisisCuantitativo($idUsuario,$idProyecto){
         $analisisCuantitativo =  SaveAnalisisCuantitativo::select('id_usuario','id_proyecto','id_tokenomic','id_movimientosOnChain','id_metricasExchage','id_financiamitos','promedio')
         ->where('id_usuario',$idUsuario)
+        ->where('id_proyecto',$idProyecto)
         ->get();
         return response()->json($analisisCuantitativo, 200);
     }
