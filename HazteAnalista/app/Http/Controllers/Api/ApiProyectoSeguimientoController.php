@@ -66,7 +66,7 @@ class ApiProyectoSeguimientoController extends Controller
         $arrray = array();
         foreach($proyectosSeg as $key => $value){
             
-            $analisisCualitativo = SaveAnalisisCualitativo::where('id_usuarios',$request->idUsuario)->where('id_proyecto',$value->id_proyecto)->select('id as idAnalisisCualitativo')->get();
+            $analisisCualitativo = SaveAnalisisCualitativo::where('id_usuarios',$request->idUsuario)->where('id_proyecto',$value->id_proyectoInicial)->select('id as idAnalisisCualitativo')->get();
             $tieneAnaCualitativo = count($analisisCualitativo) >= 1  ? true : false;
             if($tieneAnaCualitativo){
                 $idAnalisCualitativo = $analisisCualitativo[0]->idAnalisisCualitativo;;
@@ -74,7 +74,7 @@ class ApiProyectoSeguimientoController extends Controller
                 $idAnalisCualitativo = 0;
             }
 
-            $analisisCuantitativo = SaveAnalisisCuantitativo::where('id_usuario',$request->idUsuario)->where('id_proyecto',$value->id_proyecto)->select('id as idAnalisisCuantitativo')->get();
+            $analisisCuantitativo = SaveAnalisisCuantitativo::where('id_usuario',$request->idUsuario)->where('id_proyecto',$value->id_proyectoInicial)->select('id as idAnalisisCuantitativo')->get();
             $tieneAnaCuantitativo = count($analisisCuantitativo) >= 1  ? true : false;
             if($tieneAnaCuantitativo){
                 $idAnalisCuantitativo = $analisisCuantitativo[0]->idAnalisisCuantitativo;;
