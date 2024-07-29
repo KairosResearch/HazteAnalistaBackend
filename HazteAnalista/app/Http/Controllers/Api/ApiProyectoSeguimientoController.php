@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\proyectoSeguimiento;
 use App\Models\Proyecto_seguimiento_sector;
+use App\Models\SaveAnalisisCualitativo;
+use App\Models\SaveAnalisisCuantitativo;
 
 class ApiProyectoSeguimientoController extends Controller
 {
@@ -63,6 +65,24 @@ class ApiProyectoSeguimientoController extends Controller
         
         $arrray = array();
         foreach($proyectosSeg as $key => $value){
+            
+            $analisisCualitativo = SaveAnalisisCualitativo::where('id_usuarios',$request->idUsuario)->where('id_proyecto',$value->id_proyecto)->select('id as idAnalisisCualitativo')->get();
+            $tieneAnaCualitativo = count($analisisCualitativo) >= 1  ? true : false;
+            if($tieneAnaCualitativo){
+                $idAnalisCualitativo = $analisisCualitativo[0]->idAnalisisCualitativo;;
+            }else{
+                $idAnalisCualitativo = 0;
+            }
+
+            $analisisCuantitativo = SaveAnalisisCuantitativo::where('id_usuario',$request->idUsuario)->where('id_proyecto',$value->id_proyecto)->select('id as idAnalisisCuantitativo')->get();
+            $tieneAnaCuantitativo = count($analisisCuantitativo) >= 1  ? true : false;
+            if($tieneAnaCuantitativo){
+                $idAnalisCuantitativo = $analisisCuantitativo[0]->idAnalisisCuantitativo;;
+            }else{
+                $idAnalisCuantitativo = 0;
+            }
+            
+
             $arrray[$key]['id_proyecto'] = $value->id_proyecto;
             $arrray[$key]['id_proyectoInicial'] = $value->id_proyectoInicial;
             $arrray[$key]['id4e'] = $value->id4e;
@@ -72,6 +92,12 @@ class ApiProyectoSeguimientoController extends Controller
             $arrray[$key]['proyecto'] = $value->proyecto;
             $arrray[$key]['ticker'] = $value->ticker;
             $arrray[$key]['sectores'] = $this->GetSectores($value->id_proyecto);
+            
+            $arrray[$key]['tieneAnalisisCualitativo'] = $tieneAnaCualitativo;
+            $arrray[$key]['id_analisis_cualitativo']  = $idAnalisCualitativo;
+
+            $arrray[$key]['tieneAnalisisCuantitavivo'] = $tieneAnaCuantitativo;
+            $arrray[$key]['id_analisis_cuantitativo']  = $idAnalisCuantitativo;
         }
         return response()->json(['proyectos' => $arrray], 200);
     }

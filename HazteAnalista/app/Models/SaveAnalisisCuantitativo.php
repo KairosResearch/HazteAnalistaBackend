@@ -14,10 +14,6 @@ class SaveAnalisisCuantitativo extends Model
     protected $fillable = [
         'id_usuario',
         'id_proyecto',
-        'id_tokenomic',
-        'id_movimientosOnChain',
-        'id_metricasExchage',
-        'id_financiamitos',
-        'promedio',
+        'suma'
     ];
 }

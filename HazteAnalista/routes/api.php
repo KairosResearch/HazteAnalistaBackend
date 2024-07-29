@@ -97,8 +97,8 @@ use App\Models\SaveAnalisisCuantitativo;
         Route::put('updateAnalisisCualitativo',[SaveAnalisisCualitativoController::class,'updateAnalisisCualitativo']);
         Route::put('updateAnalisisCuantitativo',[SaveAnalisisCuantitativoController::class,'updateAnalisisCuantitativo']);
 
-        Route::get('getAnalisisCualitativo/{idUsuario}/{idProyecto}',[SaveAnalisisCualitativoController::class,'getAnalisisCualitativo']);
-        Route::get('getAnalisisCuantitativo/{idUsuario}/{idProyecto}',[SaveAnalisisCuantitativoController::class,'getAnalisisCuantitativo']);
+        Route::get('getAnalisisCualitativo/{idAnalisis}',[SaveAnalisisCualitativoController::class,'getAnalisisCualitativo']);
+        Route::get('getAnalisisCuantitativo/{idAnalisis}',[SaveAnalisisCuantitativoController::class,'getAnalisisCuantitativo']);
 
 
         

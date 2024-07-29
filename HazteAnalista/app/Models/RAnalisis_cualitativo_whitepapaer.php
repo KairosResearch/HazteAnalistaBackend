@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SaveAnalisisCualitativo extends Model
+class RAnalisis_cualitativo_whitepapaer extends Model
 {
     use HasFactory;
 
-    protected $table =  "save_analisis_cualitativos";
+    protected $table =  "r_analisis_cualitativo_whitepapaers";
     
     protected $fillable = [
-        'id_usuarios',
-        'id_proyecto',
-        'suma'
+        'id_anasis_cuali',
+        'id_whitepapper'
     ];
 }
+
