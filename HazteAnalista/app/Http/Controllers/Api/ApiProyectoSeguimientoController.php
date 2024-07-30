@@ -59,7 +59,7 @@ class ApiProyectoSeguimientoController extends Controller
     public function getProyectos(Request $request){
         $proyectosSeg = DB::table('proyecto_seguimiento')
             ->join('proyectos', 'proyectos.id', '=', 'proyecto_seguimiento.idProyecto')
-            ->select('proyecto_seguimiento.id as id_proyecto','id4e','id_decision_proyecto','idExchange','precioEntrada','proyecto','ticker','proyectos.id as id_proyectoInicial')
+            ->select('proyecto_seguimiento.id as id_proyecto','id4e','id_decision_proyecto','idExchange','precioEntrada','proyecto','ticker','proyectos.id as id_proyectoInicial','proyecto_seguimiento.notas')
             ->where('proyecto_seguimiento.idUsuario',$request->idUsuario)
             ->get();
         
@@ -91,6 +91,7 @@ class ApiProyectoSeguimientoController extends Controller
             $arrray[$key]['precioEntrada'] = $value->precioEntrada;
             $arrray[$key]['proyecto'] = $value->proyecto;
             $arrray[$key]['ticker'] = $value->ticker;
+            $arrray[$key]['nota'] = $value->notas;
             $arrray[$key]['sectores'] = $this->GetSectores($value->id_proyecto);
             
             $arrray[$key]['tieneAnalisisCualitativo'] = $tieneAnaCualitativo;
@@ -170,5 +171,18 @@ class ApiProyectoSeguimientoController extends Controller
                 ->delete();
         }
         return response()->json(['Proyectos Eliminados'=>$proyectoDelete],200);
-    }    
+    }   
+
+    public function updateNotas(Request $request){
+        $nota       =  $request->nota;
+        $idUsuario  =  $request->idUsuario;  
+        $idProyecto =  $request->idProyecto;
+        $notas = proyectoSeguimiento::where('idUsuario',$idUsuario)
+        ->where('idProyecto',$idProyecto)
+        ->update([
+            'notas' => $nota
+        ]);
+        
+        return response()->json(['Nota modificada correctamente¡' => $notas], 200);
+    } 
 }

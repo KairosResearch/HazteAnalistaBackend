@@ -64,6 +64,8 @@ use App\Models\SaveAnalisisCuantitativo;
         Route::post('saveProyectSegmto',[ApiProyectoSeguimientoController::class, 'saveProytecto']);
         Route::delete('delteProject', [ApiProyectoSeguimientoController::class, 'deleteProject']);
         Route::put('update_project',[ApiProyectoSeguimientoController::class,'updateProyect']);
+        Route::put('updateNotas',[ApiProyectoSeguimientoController::class,'updateNotas']);
+        
 
         Route::get('getProyectosSegUsuario/{idUsuario}',[ApiProyectoSeguimientoController::class,'getProyectos']);
         Route::get('getInfoProyecto/{idProyecto}',[ApiProyectosController::class,'getInfoProyecto']);
