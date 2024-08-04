@@ -13,6 +13,7 @@ use App\Models\RAnalisis_cuantitativo_movs_onchain;
 use App\Models\RAnalisis_cuantitativo_tokenomic;
 
 
+
 class SaveAnalisisCuantitativoController extends Controller
 {
     public function saveAnalisisCuantitavo(Request $request){
@@ -194,6 +195,80 @@ class SaveAnalisisCuantitativoController extends Controller
             $arrayTokenomics[$key] = $value->id_tokenomics;
         }
         return $arrayTokenomics;
+    }
+
+    public function getTokenBalancesArb($accountArb){
+        
+        $client = new \GuzzleHttp\Client();
+
+        $response = $client->request('POST', 'https://arb-mainnet.g.alchemy.com/v2/p2W2C5w4TDjDP8Cj3zn1-A8Z83Mmnm58', [
+        'body' => '{"id":1,"jsonrpc":"2.0","method":"alchemy_getTokenBalances","params":["'.$accountArb.'"]}',
+        'headers' => [
+            'accept' => 'application/json',
+            'content-type' => 'application/json',
+        ],
+        ]);
+        $valance =  json_decode($response->getBody());
+        $Tokens = $valance->result->tokenBalances;
+        
+        
+        $contratosSeleccionados = array("0x82af49447d8a07e3bd95bd0d56f35241523fbab1","0x912ce59144191c1204e64559fe8253a0e49e6548","0xaf88d065e77c8cc2239327c5edb3a432268e5831","0xda10009cbd5d07dd0cecc66161fc93d7c9000da1","0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9","0xff970a61a04b1ca14834a43f5de4533ebddb5cc8");
+
+        $totalBalance = 0;
+        $tokenInfo = array();
+        foreach($Tokens as $token){
+            $balance = $token->tokenBalance;
+            $balance = hexdec($balance);
+            if(in_array($token->contractAddress,$contratosSeleccionados) and $balance !=0){
+                $llamada      = $this->getMetaData($token->contractAddress);
+                $decimals     = $llamada->result->decimals;
+                $balance      = $balance/pow(10, $decimals);
+                $totalBalance = $totalBalance + $balance ;
+                $tokenInfo[] = array(
+                    'logo'    => $llamada->result->logo ,
+                    'simbolo' => $llamada->result->symbol,
+                    'balance' => $balance
+                );
+            }   
+        }
+        //$tokenInfo[]=array('totalBalance' => $totalBalance);   
+        $valorNativo = hexdec($this->getEthBalance($accountArb)->result)/pow(10, 18); 
+        if($valorNativo != 0){
+            $tokenInfo[]=array(
+                'logo'=>"https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+                'simbolo'=>"ETH",
+                'balance'=>$valorNativo
+            );
+        }
+        return response()->json(["Balances"=>$tokenInfo, "TotalBalance"=>$totalBalance+$valorNativo]);
+    }
+
+    public function getMetaData($metaData){
+        $client = new \GuzzleHttp\Client();
+
+        $response = $client->request('POST', 'https://arb-mainnet.g.alchemy.com/v2/p2W2C5w4TDjDP8Cj3zn1-A8Z83Mmnm58', [
+            'body' => '{"id":1,"jsonrpc":"2.0","method":"alchemy_getTokenMetadata","params":["'.$metaData.'"]}',
+            'headers' => [
+              'accept' => 'application/json',
+              'content-type' => 'application/json',
+            ],
+          ]);
+        return json_decode($response->getBody());
+    }
+
+    public function getEthBalance($account){
+        $client = new \GuzzleHttp\Client();
+
+        $response = $client->request('POST', 'https://arb-mainnet.g.alchemy.com/v2/p2W2C5w4TDjDP8Cj3zn1-A8Z83Mmnm58', [
+            'body' => '{"id":1,"jsonrpc":"2.0","params":["'.$account.'","latest"],"method":"eth_getBalance"}',
+            'headers' => [
+              'accept' => 'application/json',
+              'content-type' => 'application/json',
+            ],
+          ]);
+
+        return json_decode($response->getBody());
+
     }
 }
 

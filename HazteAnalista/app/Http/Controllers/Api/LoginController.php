@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
+use App\Http\Controllers\Api\SaveAnalisisCuantitativoController;
+
+
 class LoginController extends Controller
 {
     /**
@@ -45,6 +48,7 @@ class LoginController extends Controller
      */
     public function login(Request $request)
     {
+      $balances = new SaveAnalisisCuantitativoController();
       $request->validate([
         'id_user_privy' => 'required|string',
         'wallet' => 'required|string'
@@ -83,7 +87,8 @@ class LoginController extends Controller
             'id_usuario' => $user[0]->id,
             'id_user_privy' => $user[0]->id_user_privy,
             'waller' => $user[0]->wallet,
-            'proyectos_seguimiento' => $arrray
+            'proyectos_seguimiento' => $arrray,
+            'Balances' => $balances->getTokenBalancesArb($user[0]->wallet)->original
         ]);
 
     }else{
