@@ -197,12 +197,12 @@ class SaveAnalisisCuantitativoController extends Controller
         return $arrayTokenomics;
     }
 
-    public function getTokenBalancesArb($accountArb){
+    public function getTokenBalancesArb($wallet){
         
         $client = new \GuzzleHttp\Client();
 
         $response = $client->request('POST', 'https://arb-mainnet.g.alchemy.com/v2/p2W2C5w4TDjDP8Cj3zn1-A8Z83Mmnm58', [
-        'body' => '{"id":1,"jsonrpc":"2.0","method":"alchemy_getTokenBalances","params":["'.$accountArb.'"]}',
+        'body' => '{"id":1,"jsonrpc":"2.0","method":"alchemy_getTokenBalances","params":["'.$wallet.'"]}',
         'headers' => [
             'accept' => 'application/json',
             'content-type' => 'application/json',
@@ -232,7 +232,7 @@ class SaveAnalisisCuantitativoController extends Controller
             }   
         }
         //$tokenInfo[]=array('totalBalance' => $totalBalance);   
-        $valorNativo = hexdec($this->getEthBalance($accountArb)->result)/pow(10, 18); 
+        $valorNativo = hexdec($this->getEthBalance($wallet)->result)/pow(10, 18); 
         if($valorNativo != 0){
             $tokenInfo[]=array(
                 'logo'=>"https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",

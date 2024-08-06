@@ -87,8 +87,8 @@ class LoginController extends Controller
             'id_usuario' => $user[0]->id,
             'id_user_privy' => $user[0]->id_user_privy,
             'waller' => $user[0]->wallet,
-            'proyectos_seguimiento' => $arrray,
-            'Balances' => $balances->getTokenBalancesArb($user[0]->wallet)->original
+            'proyectos_seguimiento' => $arrray
+            //'Balances' => $balances->getTokenBalancesArb($user[0]->wallet)->original
         ]);
 
     }else{
