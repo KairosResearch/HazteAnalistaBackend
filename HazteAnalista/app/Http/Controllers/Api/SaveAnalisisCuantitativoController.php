@@ -197,7 +197,7 @@ class SaveAnalisisCuantitativoController extends Controller
         return $arrayTokenomics;
     }
 
-    public function getTokenBalancesArb($wallet){
+    public function getTokenBalancesArb($wallet,$moneda){
         
         $client = new \GuzzleHttp\Client();
 
@@ -223,24 +223,35 @@ class SaveAnalisisCuantitativoController extends Controller
                 $llamada      = $this->getMetaData($token->contractAddress);
                 $decimals     = $llamada->result->decimals;
                 $balance      = $balance/pow(10, $decimals);
-                $totalBalance = $totalBalance + $balance ;
+                $monto        = $balance * $this->getValueCripto($llamada->result->symbol,$moneda);
+                $valorCrypto  = $this->getValueCripto($llamada->result->symbol,$moneda);
+                //Obtener el valor en USD o talvez MXN  
+                $totalBalance = $totalBalance + $monto; //Sumar los balances del valor en UDS
                 $tokenInfo[] = array(
-                    'logo'    => $llamada->result->logo ,
-                    'simbolo' => $llamada->result->symbol,
-                    'balance' => $balance
+                    'logo'            => $llamada->result->logo ,
+                    'simbolo'         => $llamada->result->symbol,
+                    'balanceCrypto'   => $balance,
+                    'balanceFiat'     => $monto,
+                    'valorUnitCrypto' => $valorCrypto
                 );
             }   
         }
         //$tokenInfo[]=array('totalBalance' => $totalBalance);   
-        $valorNativo = hexdec($this->getEthBalance($wallet)->result)/pow(10, 18); 
-        if($valorNativo != 0){
+        $valorNativoEHT = hexdec($this->getEthBalance($wallet)->result)/pow(10, 18); 
+        $montoETH=0;
+        if($valorNativoEHT != 0){
+            $montoETH        = $valorNativoEHT * $this->getValueCripto("ETH",$moneda);
+            $valorCrypto  = $this->getValueCripto("ETH",$moneda);
             $tokenInfo[]=array(
                 'logo'=>"https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
                 'simbolo'=>"ETH",
-                'balance'=>$valorNativo
+                'balanceCrypto'=>$valorNativoEHT,
+                'balanceFiat'     => $monto,
+                'valorUnitCrypto' => $valorCrypto
             );
         }
-        return response()->json(["Balances"=>$tokenInfo, "TotalBalance"=>$totalBalance+$valorNativo]);
+        
+        return response()->json(["Balances"=>$tokenInfo, "TotalBalance"=>$totalBalance+$montoETH]);
     }
 
     public function getMetaData($metaData){
@@ -269,6 +280,37 @@ class SaveAnalisisCuantitativoController extends Controller
 
         return json_decode($response->getBody());
 
+    }
+
+    public function getValueCripto($simbolo,$moneda){
+        $url = 'https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest';
+        // $data['data']['BTC']['quote']['USD']['price'];
+        $parameters = [
+            'symbol'  => $simbolo, 
+            'convert' => $moneda
+        ];
+
+        $headers = [
+            'Accepts: application/json',
+            'X-CMC_PRO_API_KEY: a3d40011-8f49-4c61-8707-62b34bee12ea' 
+        ];
+
+        $query = http_build_query($parameters);
+        $request = "{$url}?{$query}";
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $request,
+            CURLOPT_HTTPHEADER => $headers, 
+            CURLOPT_RETURNTRANSFER => 1
+        ));
+        $response = curl_exec($curl);
+        curl_close($curl);
+        $data = json_decode($response, true);
+
+        $price = $data;
+        $price=$price['data'][$simbolo]['0']['quote'][$moneda]['price'];
+
+        return $price;
     }
 }
 
