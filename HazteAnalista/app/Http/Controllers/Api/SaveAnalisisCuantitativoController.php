@@ -11,8 +11,7 @@ use App\Models\RAnalisis_cuantitativo_financiamiento;
 use App\Models\RAnalisis_cuantitativo_movs_metricas_exchange;
 use App\Models\RAnalisis_cuantitativo_movs_onchain;
 use App\Models\RAnalisis_cuantitativo_tokenomic;
-
-
+use Hamcrest\Type\IsNumeric;
 
 class SaveAnalisisCuantitativoController extends Controller
 {
@@ -279,11 +278,20 @@ class SaveAnalisisCuantitativoController extends Controller
 
     public function getValueCripto($simbolo,$moneda){
         $url = 'https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest';
+        //print($simbolo);
+        if($simbolo == "USDC.e"){
+            $simbolo=18852;
+            $parameters = [
+                'id'  => $simbolo, 
+                'convert' => $moneda
+            ];
+        }else{
+            $parameters = [
+                'symbol'  => $simbolo, 
+                'convert' => $moneda
+            ];
+        }
         
-        $parameters = [
-            'symbol'  => $simbolo, 
-            'convert' => $moneda
-        ];
 
         $headers = [
             'Accepts: application/json',
@@ -299,11 +307,18 @@ class SaveAnalisisCuantitativoController extends Controller
             CURLOPT_RETURNTRANSFER => 1
         ));
         $response = curl_exec($curl);
+        //print($response);
         curl_close($curl);
         $data = json_decode($response, true);
-
+        
         $price = $data;
-        $price=$price['data'][$simbolo]['0']['quote'][$moneda]['price'];
+        if(is_numeric($simbolo)){
+            $price=$price['data'][$simbolo]['quote'][$moneda]['price'];
+        }else{
+            $price=$price['data'][$simbolo]['0']['quote'][$moneda]['price'];
+        }
+
+        //print($simbolo." - ".$price."\n");
 
         return $price;
     }
