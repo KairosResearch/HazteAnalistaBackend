@@ -255,16 +255,20 @@ class SaveAnalisisCuantitativoController extends Controller
         $PTb  = $this->getValueCripto($tokenB,$moneda); 
         $comparativa = array();
         
-        $ProtecPrecio = ($McTb/$McTb)* $PTa;
+        $ProjectPrecio = ($McTb/$McTa)* $PTa;
         
-        $NoX = ($ProtecPrecio /$PTb);
+        $NoX = ($ProjectPrecio /$PTa);
+        $porcentajeX = (($ProjectPrecio-$PTa)/$PTa) * 100;
+        $progreso = ($McTb/$McTa)*100;
         
         
         $comparativa[] = array(
             'MakCapA' => $McTa,
             'MakCapB' => $McTb,
-            'ProyecPrecio' => $ProtecPrecio,
-            'NoX' => $NoX
+            'ProyecPrecio' => $ProjectPrecio,
+            'NoX' => $NoX,
+            'PorcentajeX' => $porcentajeX,
+            'Progreso' => $progreso
         );
         return response()->json(["comparativa"=>$comparativa]);
     }
