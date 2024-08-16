@@ -103,6 +103,7 @@ use App\Models\SaveAnalisisCuantitativo;
         Route::get('getAnalisisCuantitativo/{idAnalisis}',[SaveAnalisisCuantitativoController::class,'getAnalisisCuantitativo']);
 
         Route::get('getBalances/{wallet}/{moneda}',[SaveAnalisisCuantitativoController::class,'getTokenBalancesArb']);
+        Route::get('comparativaMarketCap/{tokenA}/{tokenB}/{moneda}',[SaveAnalisisCuantitativoController::class,'comparativaMarketCap']);
 
        
 

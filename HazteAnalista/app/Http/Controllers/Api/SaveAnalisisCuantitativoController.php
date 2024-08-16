@@ -248,6 +248,23 @@ class SaveAnalisisCuantitativoController extends Controller
         return response()->json(["Balances"=>$tokenInfo, "TotalBalance"=>$totalBalance+$montoETH]);
     }
 
+    public function comparativaMarketCap($tokenA,$tokenB,$moneda){
+        $McTa = $this->getMarketCap($tokenA,$moneda);
+        $McTb = $this->getMarketCap($tokenB,$moneda);
+        $PTa  = $this->getValueCripto($tokenA,$moneda); 
+        $comparativa = array();
+        $NoX = ($McTb/$McTa);
+        $ProPrecio = $NoX * $PTa;
+        
+        $comparativa[] = array(
+            'MakCapA' => $McTa,
+            'MakCapB' => $McTb,
+            'ProyecPrecio' => $ProPrecio,
+            'NoX' => $NoX
+        );
+        return response()->json(["comparativa"=>$comparativa]);
+    }
+
     public function getMetaData($metaData){
         $client = new \GuzzleHttp\Client();
 
@@ -321,6 +338,54 @@ class SaveAnalisisCuantitativoController extends Controller
         //print($simbolo." - ".$price."\n");
 
         return $price;
+    }
+
+    public function getMarketCap($simbolo,$moneda){
+        $url = 'https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest';
+        //print($simbolo);
+        if($simbolo == "USDC.e"){
+            $simbolo=18852;
+            $parameters = [
+                'id'  => $simbolo, 
+                'convert' => $moneda
+            ];
+        }else{
+            $parameters = [
+                'symbol'  => $simbolo, 
+                'convert' => $moneda
+            ];
+        }
+        
+
+        $headers = [
+            'Accepts: application/json',
+            'X-CMC_PRO_API_KEY: a3d40011-8f49-4c61-8707-62b34bee12ea' 
+        ];
+
+        $query = http_build_query($parameters);
+        $request = "{$url}?{$query}";
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $request,
+            CURLOPT_HTTPHEADER => $headers, 
+            CURLOPT_RETURNTRANSFER => 1
+        ));
+        $response = curl_exec($curl);
+        //print($response);
+        curl_close($curl);
+        $data = json_decode($response, true);
+        
+        $mc = $data;
+        if(is_numeric($simbolo)){
+            $mc=$mc['data'][$simbolo]['quote'][$moneda]['market_cap'];
+        }else{
+            $mc=$mc['data'][$simbolo]['0']['quote'][$moneda]['market_cap'];
+        }
+
+        //print($simbolo." - ".$price."\n");
+
+        return $mc;
+
     }
 }
 
