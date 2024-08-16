@@ -252,14 +252,18 @@ class SaveAnalisisCuantitativoController extends Controller
         $McTa = $this->getMarketCap($tokenA,$moneda);
         $McTb = $this->getMarketCap($tokenB,$moneda);
         $PTa  = $this->getValueCripto($tokenA,$moneda); 
+        $PTb  = $this->getValueCripto($tokenB,$moneda); 
         $comparativa = array();
-        $NoX = ($McTb/$McTa);
-        $ProPrecio = $NoX * $PTa;
+        
+        $ProtecPrecio = ($McTb/$McTb)* $PTa;
+        
+        $NoX = ($ProtecPrecio /$PTb);
+        
         
         $comparativa[] = array(
             'MakCapA' => $McTa,
             'MakCapB' => $McTb,
-            'ProyecPrecio' => $ProPrecio,
+            'ProyecPrecio' => $ProtecPrecio,
             'NoX' => $NoX
         );
         return response()->json(["comparativa"=>$comparativa]);
