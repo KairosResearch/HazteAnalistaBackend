@@ -30,6 +30,7 @@ use App\Http\Controllers\Api\AnalisisCuantitativoTokenomicsController;
 
 use App\Http\Controllers\Api\SaveAnalisisCualitativoController;
 use App\Http\Controllers\Api\SaveAnalisisCuantitativoController;
+use App\Http\Controllers\Api\GetPosicionesArbitum;
 use App\Models\SaveAnalisisCuantitativo;
 
 /*
@@ -104,6 +105,8 @@ use App\Models\SaveAnalisisCuantitativo;
 
         Route::get('getBalances/{wallet}/{moneda}',[SaveAnalisisCuantitativoController::class,'getTokenBalancesArb']);
         Route::get('comparativaMarketCap/{tokenA}/{tokenB}/{moneda}',[SaveAnalisisCuantitativoController::class,'comparativaMarketCap']);
+
+        Route::get('getPositions/{wallet}',[GetPosicionesArbitum::class,'getPositions']);
 
        
 
