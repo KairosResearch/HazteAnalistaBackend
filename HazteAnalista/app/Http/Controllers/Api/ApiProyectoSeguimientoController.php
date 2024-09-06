@@ -33,8 +33,11 @@ class ApiProyectoSeguimientoController extends Controller
         ]);
 
         foreach($request->idSector as $key => $value){
-            
          if(count($request->idSector) == 1 and $value == 1){
+            $prcto_seg_sector = Proyecto_seguimiento_sector::create([
+            'id_proyecto_seguimiento' => $proyecto->id,
+            'id_sector' => $value]);
+         }elseif(count($request->idSector) == 1 and $value != 1){
             $prcto_seg_sector = Proyecto_seguimiento_sector::create([
             'id_proyecto_seguimiento' => $proyecto->id,
             'id_sector' => $value]);
@@ -144,6 +147,10 @@ class ApiProyectoSeguimientoController extends Controller
                 $sector = Proyecto_seguimiento_sector::create([
                     'id_proyecto_seguimiento'=>$id_projecto,
                     'id_sector'=>$value]);
+            }elseif(count($sectoresAdd) == 1 and $value != 1){
+                $sector = Proyecto_seguimiento_sector::create([
+                    'id_proyecto_seguimiento'=>$id_projecto,
+                    'id_sector'=>$value]);
             }elseif(count($sectoresAdd) > 1 && in_array(1,$sectoresAdd)){
                if($value != 1){
                 $sector = Proyecto_seguimiento_sector::create([
@@ -177,12 +184,22 @@ class ApiProyectoSeguimientoController extends Controller
         $nota       =  $request->nota;
         $idUsuario  =  $request->idUsuario;  
         $idProyecto =  $request->idProyecto;
+        
         $notas = proyectoSeguimiento::where('idUsuario',$idUsuario)
         ->where('idProyecto',$idProyecto)
         ->update([
             'notas' => $nota
         ]);
-        
-        return response()->json(['Nota modificada correctamente¡' => $notas], 200);
+
+        if($notas == 1){
+         $notaupdate = proyectoSeguimiento::where('idUsuario',$idUsuario)
+         ->where('idProyecto',$idProyecto)
+         ->select('notas')
+         ->get();
+        }else{
+            return response()->json(['Nota no encontrada'], 204);    
+        }
+        return response()->json($notaupdate, 200);
     } 
+
 }
