@@ -53,12 +53,12 @@ use App\Models\SaveAnalisisCuantitativo;
         Route::post('registro', [ApiRegistroController::class,'registro']);
         Route::post('login', [LoginController::class, 'login']);
         Route::get('user', [LoginController::class, 'user']);
-        
+
         Route::get('catalogo4t', [Api4eController::class, 'getCat4t']);
         Route::get('catDecinesProyec', [ApiDecisionProyectoController::class, 'getCatDecisionProyecto']);
         Route::get('catexchange', [ApiExchangesController::class, 'getCatExchanges']);
         Route::get('catSectores', [ApiSectoresController::class, 'getCatSectores']);
-        
+
         Route::get('getProyectos',[ProyectosController::class, 'getProyectos']);
         Route::get('getProyecto/{symbol}/{moneda}',[ProyectosController::class, 'getProyecto']);
 
@@ -67,14 +67,15 @@ use App\Models\SaveAnalisisCuantitativo;
         Route::put('update_project',[ApiProyectoSeguimientoController::class,'updateProyect']);
         Route::put('updateNotas',[ApiProyectoSeguimientoController::class,'updateNotas']);
         Route::put('createNotas',[ApiProyectoSeguimientoController::class,'updateNotas']);
-        
+        Route::get('getNota',[ApiProyectoSeguimientoController::class,'getNota']);
+
 
         Route::get('getProyectosSegUsuario/{idUsuario}',[ApiProyectoSeguimientoController::class,'getProyectos']);
         Route::get('getInfoProyecto/{idProyecto}',[ApiProyectosController::class,'getInfoProyecto']);
 
         Route::get('getLecciones/{idUsuario}',[LeccionesController::class,'getLecciones']);
         Route::post('update_leccion_estatus',[LeccionesController::class,'update_leccion_estatus']);
-        
+
         Route::put('setUltimaLeccion',[LeccionesController::class,'setUltimaLeccion']);
         Route::get('get_ultima_leccion/{idUsuario}',[UltimasLeccionesController::class,'get_ultima_leccion']);
         Route::put('set_ultima_leccion',[UltimasLeccionesController::class,'set_ultima_leccion']);
@@ -109,13 +110,12 @@ use App\Models\SaveAnalisisCuantitativo;
 
         Route::get('getPositions/{wallet}',[GetPosicionesArbitum::class,'getPositions']);
 
-       
 
-        
+
+
         /*Route::group(['middleware' => 'auth:api'], function() {
             Route::get('logout', [LoginController::class, 'logout']);
             Route::get('user', [LoginController::class, 'user']);
         });*/
 
     });
-    
