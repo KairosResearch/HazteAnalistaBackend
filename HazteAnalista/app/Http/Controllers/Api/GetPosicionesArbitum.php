@@ -18,7 +18,7 @@ class GetPosicionesArbitum extends Controller
         $valorLokedEthereum = $this->getLokedEthereumValue($wallet);
         $valorSatkedEthereum = $this->getStakedEthereum($wallet);
 
-        return response()->json(["loked"=>$valorLoked,"staked"=>$valorStaked,"stakedScroll"=>$valorSatkedScroll,"lokedScroll"=>$valorLokedScroll,"stakedEthereum"=>$valorSatkedEthereum,"lokedEthereum"=>$valorLokedEthereum]);
+        return response()->json(["lokedArbitrum"=>$valorLoked,"stakedArbitrum"=>$valorStaked,"stakedScroll"=>$valorSatkedScroll,"lokedScroll"=>$valorLokedScroll,"stakedEthereum"=>$valorSatkedEthereum,"lokedEthereum"=>$valorLokedEthereum]);
     }
 
     public function getLokedValue($wallet){
