@@ -248,6 +248,58 @@ class SaveAnalisisCuantitativoController extends Controller
         return response()->json(["Balances"=>$tokenInfo, "TotalBalance"=>$totalBalance+$montoETH]);
     }
 
+    public function getTokenBalancesScrol($wallet,$moneda){
+        $client = new \GuzzleHttp\Client();
+
+        $response = $client->request('POST', 'https://scroll-mainnet.g.alchemy.com/v2/p2W2C5w4TDjDP8Cj3zn1-A8Z83Mmnm58', [
+        'body' => '{"id":1,"jsonrpc":"2.0","method":"alchemy_getTokenBalances","params":["'.$wallet.'"]}',
+        'headers' => [
+            'accept' => 'application/json',
+            'content-type' => 'application/json',
+        ],
+        ]);
+        $valance =  json_decode($response->getBody());
+        $Tokens = $valance->result->tokenBalances;
+        
+        $contratosSeleccionados = array("0x82af49447d8a07e3bd95bd0d56f35241523fbab1","0x912ce59144191c1204e64559fe8253a0e49e6548","0xaf88d065e77c8cc2239327c5edb3a432268e5831","0xda10009cbd5d07dd0cecc66161fc93d7c9000da1","0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9","0xff970a61a04b1ca14834a43f5de4533ebddb5cc8");
+
+        $totalBalance = 0;
+        $tokenInfo = array();
+        foreach($Tokens as $token){
+            $balance = $token->tokenBalance;
+            $balance = hexdec($balance);
+            if(in_array($token->contractAddress,$contratosSeleccionados) and $balance !=0){
+                $llamada      = $this->getMetaData($token->contractAddress);
+                $decimals     = $llamada->result->decimals;
+                $balance      = $balance/pow(10, $decimals);
+                $monto        = $balance * $this->getValueCripto($llamada->result->symbol,$moneda);
+                $valorCrypto  = $this->getValueCripto($llamada->result->symbol,$moneda);
+                $totalBalance = $totalBalance + $monto;
+                $tokenInfo[] = array(
+                    'logo'            => $llamada->result->logo ,
+                    'simbolo'         => $llamada->result->symbol,
+                    'balanceCrypto'   => $balance,
+                    'balanceFiat'     => $monto,
+                    'valorUnitCrypto' => $valorCrypto
+                );
+            }   
+        }
+        $valorNativoEHT = hexdec($this->getEthBalance($wallet)->result)/pow(10, 18); 
+        $montoETH=0;
+        if($valorNativoEHT != 0){
+            $montoETH        = $valorNativoEHT * $this->getValueCripto("ETH",$moneda);
+            $valorCrypto     = $this->getValueCripto("ETH",$moneda);
+            $tokenInfo[]=array(
+                'logo'=>"https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+                'simbolo'=>"ETH",
+                'balanceCrypto'=>$valorNativoEHT,
+                'balanceFiat'     => $montoETH,
+                'valorUnitCrypto' => $valorCrypto
+            );
+        }
+        return response()->json(["Balances"=>$tokenInfo, "TotalBalance"=>$totalBalance+$montoETH]);
+    }
+
     public function comparativaMarketCap($tokenA,$tokenB,$moneda){
         $McTa = $this->getMarketCap($tokenA,$moneda);
         $McTb = $this->getMarketCap($tokenB,$moneda);
