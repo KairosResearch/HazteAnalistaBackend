@@ -144,12 +144,13 @@ class GetPosicionesArbitum extends Controller
 
         $arraystaking = [];
 
-        $response = $client->request('GET', 'https://api.zerion.io/v1/wallets/'.$wallet.'/positions/?filter[positions]=only_complex&currency=usd&filter[position_types]=staked&filter[trash]=only_non_trash&sort=value', [
+        $response = $client->request('GET', 'https://api.zerion.io/v1/wallets/'.$wallet.'/positions/?filter[positions]=only_complex&currency=usd&filter[position_types]=staked&filter[chain_ids]=ethereum&filter[trash]=only_non_trash&sort=value', [
             'headers' => [
               'accept' => 'application/json',
               'authorization' => 'Basic emtfZGV2X2I5OWQzOWYwYjk1MjQ4YTU5ODJlMjZlYjYwNTI3YTUwOg==',
             ],
           ]);
+          
 
         $response = json_decode($response->getBody());
         
@@ -175,7 +176,7 @@ class GetPosicionesArbitum extends Controller
 
         $arraylokedScroll = [];
 
-        $response = $client->request('GET', 'https://api.zerion.io/v1/wallets/'.$wallet.'/positions/?filter[positions]=only_complex&currency=usd&filter[position_types]=locked&filter[trash]=only_non_trash&sort=value', [
+        $response = $client->request('GET', 'https://api.zerion.io/v1/wallets/'.$wallet.'/positions/?filter[positions]=only_complex&currency=usd&filter[position_types]=locked&filter[chain_ids]=ethereum&filter[trash]=only_non_trash&sort=value', [
             'headers' => [
               'accept' => 'application/json',
               'authorization' => 'Basic emtfZGV2X2I5OWQzOWYwYjk1MjQ4YTU5ODJlMjZlYjYwNTI3YTUwOg==',
