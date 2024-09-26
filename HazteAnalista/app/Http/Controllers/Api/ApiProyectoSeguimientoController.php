@@ -59,11 +59,11 @@ class ApiProyectoSeguimientoController extends Controller
         }
     }
 
-    public function getNota(Request $request){
+    public function getNota($idUsuario,$idProyecto){
         $nota = DB::table('proyecto_seguimiento')
         ->select('notas')
-        ->where('proyecto_seguimiento.idUsuario',$request->idUsuario)
-        ->where('proyecto_seguimiento.idProyecto',$request->idProyecto)
+        ->where('proyecto_seguimiento.idUsuario',$idUsuario)
+        ->where('proyecto_seguimiento.idProyecto',$idProyecto)
         ->get();
 
         return response()->json($nota, 200);

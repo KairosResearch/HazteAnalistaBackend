@@ -67,7 +67,7 @@ use App\Models\SaveAnalisisCuantitativo;
         Route::put('update_project',[ApiProyectoSeguimientoController::class,'updateProyect']);
         Route::put('updateNotas',[ApiProyectoSeguimientoController::class,'updateNotas']);
         Route::put('createNotas',[ApiProyectoSeguimientoController::class,'updateNotas']);
-        Route::get('getNota',[ApiProyectoSeguimientoController::class,'getNota']);
+        Route::get('getNota/{idUsuario}/{idProyecto}',[ApiProyectoSeguimientoController::class,'getNota']);
 
 
         Route::get('getProyectosSegUsuario/{idUsuario}',[ApiProyectoSeguimientoController::class,'getProyectos']);
