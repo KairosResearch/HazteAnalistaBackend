@@ -8,28 +8,18 @@ use Illuminate\Http\Request;
 class GetPosicionesArbitum extends Controller
 {
     public function getPositions($wallet){
-        
-        /*$valorLoked = $this->getLokedValue($wallet);
-        $valorStaked = $this->getStaking($wallet);
-        
-        $valorLokedScroll = $this->getLokedScrollValue($wallet);
-        $valorSatkedScroll = $this->getStakedScroll($wallet);
-
-        $valorLokedEthereum = $this->getLokedEthereumValue($wallet);
-        $valorSatkedEthereum = $this->getStakedEthereum($wallet);
-
-        return response()->json(["lokedArbitrum"=>$valorLoked,"stakedArbitrum"=>$valorStaked,"stakedScroll"=>$valorSatkedScroll,"lokedScroll"=>$valorLokedScroll,"stakedEthereum"=>$valorSatkedEthereum,"lokedEthereum"=>$valorLokedEthereum]);*/
         $ArbPostion = $this->getAllPositions($wallet,"arbitrum");
         $ScrollPostion = $this->getAllPositions($wallet,"scroll");
         $EthereumPostion = $this->getAllPositions($wallet,"ethereum");
-        return response()->json(["ArbPositions"=>$ArbPostion,"ScrollPositions"=>$ScrollPostion,"EthereumPositions"=>$EthereumPostion]);
+        return response()->json(["ArbPositions"=>[$ArbPostion],"ScrollPositions"=>[$ScrollPostion],"EthereumPositions"=>[$EthereumPostion]]);
 
     }
-    public function getAllPositions($wallet,$red){
+
+    public function getAllPositions($wallet,$network){
 
         $client = new \GuzzleHttp\Client();
 
-        $response = $client->request('GET', 'https://api.zerion.io/v1/wallets/'.$wallet.'/positions/?filter[positions]=only_complex&currency=usd&filter[chain_ids]='.$red.'&filter[trash]=only_non_trash&sort=value', [
+        $response = $client->request('GET', 'https://api.zerion.io/v1/wallets/'.$wallet.'/positions/?filter[positions]=only_complex&currency=usd&filter[chain_ids]='.$network.'&filter[trash]=only_non_trash&sort=value', [
         'headers' => [
             'accept' => 'application/json',
             'authorization' => 'Basic emtfZGV2X2I5OWQzOWYwYjk1MjQ4YTU5ODJlMjZlYjYwNTI3YTUwOg==',
@@ -41,10 +31,8 @@ class GetPosicionesArbitum extends Controller
 
         // Inicializamos un arreglo para almacenar los datos agrupados
         $grouped = [];
-        $arrayloked = [];
-        
-        
-        $total_fiat_value = 0;
+    
+    
         // Iteramos sobre cada elemento del arreglo original
         foreach ($data->data as $item) {
 
@@ -54,8 +42,7 @@ class GetPosicionesArbitum extends Controller
             $simbolo =  $item->attributes->fungible_info->symbol;
             $fiat_value = $item->attributes->value;
             $icon_url = $item->attributes->fungible_info->icon;
-            
-            
+    
             // Creamos una clave compuesta de protocol y position_type
             $key = $protocol;
             
@@ -76,11 +63,8 @@ class GetPosicionesArbitum extends Controller
             );
 
             $grouped[$key][] = $position;
-            //$grouped[$key][] = $total_fiat_value;
-            
-             //array_push($arrayloked, $position);
         }
-        
+
         return $grouped;
     }
 
