@@ -58,6 +58,7 @@ class GetPosicionesArbitum extends Controller
             
             // Creamos una clave compuesta de protocol y position_type
             $key = $protocol;
+            
 
             if (!isset($grouped[$key])) {
                 $grouped[$key] = [];
@@ -80,7 +81,7 @@ class GetPosicionesArbitum extends Controller
              //array_push($arrayloked, $position);
         }
         
-        return response()->json($grouped);
+        return $grouped;
     }
 
     
