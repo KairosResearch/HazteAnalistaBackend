@@ -54,12 +54,14 @@ class GetPosicionesArbitum extends Controller
             // Añadimos el elemento actual al grupo correspondiente
             
             $position = array(
+                "positions"=>[
                 "name_protocol"=> $protocol,
                 "position_type" =>$positionType,
                 "monto_loked" => $amount_position,
                 "simbolo" => $simbolo,
                 "fiat_value" => $fiat_value,
                 "icon_url" => $icon_url
+                ]
             );
 
             $grouped[$key][] = $position;
