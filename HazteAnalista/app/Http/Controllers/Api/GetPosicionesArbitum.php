@@ -37,6 +37,7 @@ class GetPosicionesArbitum extends Controller
         foreach ($data->data as $item) {
 
             $protocol = $item->attributes->protocol;
+            $name = $item->attributes->name;
             $positionType = $item->attributes->position_type;
             $amount_position = $item->attributes->quantity->float;
             $simbolo =  $item->attributes->fungible_info->symbol;
@@ -44,6 +45,7 @@ class GetPosicionesArbitum extends Controller
             $icon_url = $item->attributes->fungible_info->icon;
     
             // Creamos una clave compuesta de protocol y position_type
+            //$key = $protocol."-".$name;
             $key = $protocol;
             
 
