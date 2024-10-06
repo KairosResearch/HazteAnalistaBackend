@@ -66,10 +66,9 @@ class GetPosicionesArbitum extends Controller
                 ]
             );
 
-            $grouped[$key][] = $position;
+            $grouped[$key][] = $position; 
         }
-
-        return $grouped;
+        return response()->json($grouped);
     }
 
     
