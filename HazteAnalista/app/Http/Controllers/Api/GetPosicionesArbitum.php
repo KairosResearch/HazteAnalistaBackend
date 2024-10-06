@@ -57,6 +57,7 @@ class GetPosicionesArbitum extends Controller
             
             $position = array(
                 "positions"=>[
+                "position_name" => $name,
                 "name_protocol"=> $protocol,
                 "position_type" =>$positionType,
                 "monto_loked" => $amount_position,
