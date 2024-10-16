@@ -11,6 +11,10 @@ class GetPosicionesArbitum extends Controller
         $ArbPostion = $this->getAllPositions($wallet,"arbitrum");
         $ScrollPostion = $this->getAllPositions($wallet,"scroll");
         $EthereumPostion = $this->getAllPositions($wallet,"ethereum");
+
+        $BasePostion = $this->getAllPositions($wallet,"polygon");
+        $PolygonPostion = $this->getAllPositions($wallet,"polygon");
+        $OptimisumPostion = $this->getAllPositions($wallet,"ethereum");
         return response()->json(["ArbPositions"=>[$ArbPostion],"ScrollPositions"=>[$ScrollPostion],"EthereumPositions"=>[$EthereumPostion]]);
 
     }
