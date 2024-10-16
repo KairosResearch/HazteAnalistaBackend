@@ -8,15 +8,14 @@ use Illuminate\Http\Request;
 class GetPosicionesArbitum extends Controller
 {
     public function getPositions($wallet){
-        $ArbPostion = $this->getAllPositions($wallet,"arbitrum");
-        $ScrollPostion = $this->getAllPositions($wallet,"scroll");
-        $EthereumPostion = $this->getAllPositions($wallet,"ethereum");
+        $ArbPostion         = $this->getAllPositions($wallet,"arbitrum");
+        $ScrollPostion      = $this->getAllPositions($wallet,"scroll");
+        $EthereumPostion    = $this->getAllPositions($wallet,"ethereum");
+        $BasePostion        = $this->getAllPositions($wallet,"base");
+        $PolygonPostion     = $this->getAllPositions($wallet,"polygon");
+        $OptimisumPostion   = $this->getAllPositions($wallet,"optimism");
 
-        $BasePostion = $this->getAllPositions($wallet,"polygon");
-        $PolygonPostion = $this->getAllPositions($wallet,"polygon");
-        $OptimisumPostion = $this->getAllPositions($wallet,"ethereum");
-        return response()->json(["ArbPositions"=>[$ArbPostion],"ScrollPositions"=>[$ScrollPostion],"EthereumPositions"=>[$EthereumPostion]]);
-
+        return response()->json(["OptimisumPositions"=>[$OptimisumPostion],"PolygonPositions"=>[$PolygonPostion],"BasePositions"=>[$BasePostion],"ArbPositions"=>[$ArbPostion],"ScrollPositions"=>[$ScrollPostion],"EthereumPositions"=>[$EthereumPostion]]);
     }
 
     public function getAllPositions($wallet,$network){
