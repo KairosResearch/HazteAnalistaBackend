@@ -9,13 +9,19 @@ class GetPosicionesArbitum extends Controller
 {
     public function getPositions($wallet){
         $ArbPostion         = $this->getAllPositions($wallet,"arbitrum");
-        $ScrollPostion      = $this->getAllPositions($wallet,"scroll");
+        //$ScrollPostion      = $this->getAllPositions($wallet,"scroll");
         $EthereumPostion    = $this->getAllPositions($wallet,"ethereum");
         $BasePostion        = $this->getAllPositions($wallet,"base");
         $PolygonPostion     = $this->getAllPositions($wallet,"polygon");
         $OptimisumPostion   = $this->getAllPositions($wallet,"optimism");
+        
+        $LineaPostion       = $this->getAllPositions($wallet,"linea");
+      //$ZksyncPostion      = $this->getAllPositions($wallet,"zksync-era");
 
-        return response()->json(["OptimisumPositions"=>[$OptimisumPostion],"PolygonPositions"=>[$PolygonPostion],"BasePositions"=>[$BasePostion],"ArbPositions"=>[$ArbPostion],"ScrollPositions"=>[$ScrollPostion],"EthereumPositions"=>[$EthereumPostion]]);
+        $AvalanchePostion   = $this->getAllPositions($wallet,"avalanche");
+        $GnosisPostion      = $this->getAllPositions($wallet,"xdai");
+
+        return response()->json(["OptimisumPositions"=>[$OptimisumPostion],"PolygonPositions"=>[$PolygonPostion],"BasePositions"=>[$BasePostion],"ArbPositions"=>[$ArbPostion],"EthereumPositions"=>[$EthereumPostion],"LineaPositions"=>[$LineaPostion],"AvalanchePositions"=>[$AvalanchePostion],"GnosisPostions"=>[$GnosisPostion]]);
     }
 
     public function getAllPositions($wallet,$network){
