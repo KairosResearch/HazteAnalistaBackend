@@ -32,6 +32,7 @@ use App\Http\Controllers\Api\SaveAnalisisCualitativoController;
 use App\Http\Controllers\Api\SaveAnalisisCuantitativoController;
 use App\Http\Controllers\Api\GetPosicionesArbitum;
 use App\Models\SaveAnalisisCuantitativo;
+use App\Http\Controllers\Api\UsersWalletsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -109,6 +110,10 @@ use App\Models\SaveAnalisisCuantitativo;
         Route::get('comparativaMarketCap/{tokenA}/{tokenB}/{moneda}',[SaveAnalisisCuantitativoController::class,'comparativaMarketCap']);
 
         Route::get('getPositions/{wallet}',[GetPosicionesArbitum::class,'getPositions']);
+
+        Route::get('getWallets/{idUsuario}',[UsersWalletsController::class,'getWallets']);
+        Route::delete('deleteWallet',[UsersWalletsController::class,'deleteWallet']);
+        Route::post('newWallet',[UsersWalletsController::class,'saveWallet']);
 
 
 
